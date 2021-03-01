@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string-array name="spinnerclass">
+        <item>SKT</item>
+        <item>DWG</item>
+        <item>EDG</item>
+        <item>RYL</item>
+        <item>ROX</item>
+        <item>IG</item>
+        <item>SSG</item>
+        <item>DGL</item>
+    </string-array>
+</resources>

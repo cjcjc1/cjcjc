@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "k8s_master",
+      "type": "java.lang.String",
+      "description": "Description for k8s_master."
+    },
+    {
+      "name": "k8s_namespace",
+      "type": "java.lang.String",
+      "description": "Description for k8s_namespace."
+    },
+    {
+      "name": "k8s_token",
+      "type": "java.lang.String",
+      "description": "Description for k8s_token."
+    }
+  ] }

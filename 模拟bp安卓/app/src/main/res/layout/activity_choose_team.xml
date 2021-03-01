@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/buttonSKT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="SKT SKTMarin SKTBengi SKTFaker SKTBang SKTWolf"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDWG"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonDWG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DWG DWGNuguri DWGCanyon DWGShowmaker DWGGhost DWGBeryl"
+        app:layout_constraintBottom_toTopOf="@+id/buttonEDG"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSKT" />
+
+    <Button
+        android:id="@+id/buttonEDG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EDG EDGkoro1 EDGClearlove EDGPawn EDGDeft EDGMeiko"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRYL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDWG" />
+
+    <Button
+        android:id="@+id/buttonRYL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RYL RYLGodlike RYLLucky RYLWh1t3zZ RYLUzi RYLTabe"
+        app:layout_constraintBottom_toTopOf="@+id/buttonIG"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEDG" />
+
+    <Button
+        android:id="@+id/buttonIG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IG IGTheShy IGNing IGRookie IGJackeylove IGBaolan"
+        app:layout_constraintBottom_toTopOf="@+id/buttonROX"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRYL" />
+
+    <Button
+        android:id="@+id/buttonROX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ROX ROXSmeb ROXPeanut ROXKuro ROXPray ROXGorilla"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSSG"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonIG" />
+
+    <Button
+        android:id="@+id/buttonSSG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SSG SSGCuvee SSGAmbition SSGCrown SSGRuler SSGCoreJJ"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLGD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonROX" />
+
+    <Button
+        android:id="@+id/buttonLGD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="lyPDGL pmIDGL VDOGDGL QBTDGL nrocADGL DGL"
+        app:layout_constraintBottom_toTopOf="@+id/buttonApply"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSSG" />
+
+    <Button
+        android:id="@+id/buttonApply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLGD" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

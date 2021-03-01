@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf8">
+    <meta name="Keywords" content="Sokoban,HTML5 Sokoban,推箱子" />
+
+    <script type="text/javascript">
+        var preload=0;
+    </script>
+
+
+    <style type="text/css">
+        <!--
+
+        #help {
+            display: none;
+        }
+
+
+        -->
+    </style>
+    <script language="JavaScript">
+        function toggle(id) {
+            var state = document.getElementById(id).style.display;
+            if (document.getElementById(id).style.display == "none") {
+                document.getElementById(id).style.display = "block";
+            } else {
+                document.getElementById(id).style.display = "none";
+            }
+        }
+    </script>
+
+
+
+    <title>推箱子</title>
+</head>
+
+
+<body><div style="width: 1000px; margin-left:auto; margin-right:auto;">
+    <link rel="shortcut icon" href="http://sokoban.ws/logo/s.ico" type="image/x-icon" />
+
+
+
+    <table border=0 width=1000 >
+        <tr><td>
+            <img src="/images/banner5c.png">
+        </td>
+            <td align=right>
+
+            </td>
+        </tr>
+    </table>
+    <p>
+
+
+
+        <script type="text/javascript" src="http://sokoban.ws/dropdowntabs/dropdowntabs.js">
+
+            /***********************************************
+             * Drop Down Tabs Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+             * This notice MUST stay intact for legal use
+             * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+             ***********************************************/
+
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="http://sokoban.ws/dropdowntabs/bluetabs.css" />
+
+    <h1>SokoPlayer HTML5</h1>
+    <section>
+        <style type="text/css">
+            <!--
+
+            #etool {
+                display: none;
+            }
+            #nonplay {
+                display: none;
+            }
+            #user {
+                display: none;
+            }
+            #uppermenu {
+                display: block;
+            }
+            #lowermenu {
+                display: block;
+            }
+
+            -->
+        </style>
+
+        <div id="uppermenu">
+
+
+            <form name="menu">
+
+                <select id="skin" onchange="javascript:sokoSkinChange()" style="display:none">
+                    <option selected="selected">http://www.sokoban.cn/sokoplayer/borgar</option>
+                </select>
+
+
+                <input type="button" value="o" onclick="javascript:sokoOrientationChange(0)">
+
+                <input type="button" value=">" onclick="javascript:sokoOrientationChange(1)">
+                <input type="button" value="|" onclick="javascript:sokoOrientationChange(2)">
+
+                <input type="button" value="标尺" onclick="javascript:sokoSetRuler()">
+                <input type="button" value="#" onclick="javascript:sokoSetGrid()" style="display:none">
+                <input type="checkbox" id="sound" style="display:none"/>
+
+                <input type="button" value="上一关" onclick="javascript:sokoPrev()"> <input type="button" value="下一关" onclick="javascript:sokoNext()">
+
+
+                [关卡集] <select id="set" onchange="javascript:sokoLevelsetChange(1)">
+                <option selected="selected">original</option>
+                <option>xsokoban</option>
+                <option>gyjgw</option>
+                <option>m1</option>
+                <option>m2</option>
+                <option>m3</option>
+                <option>m4</option>
+                <option>s1</option>
+                <option>s2</option>
+                <option>s3</option>
+                <option>s4</option>
+                <option>s5</option>
+                <option>s6</option>
+                <option>s7</option>
+                <option>s8</option>
+                <option>s9</option>
+                <option>s10</option>
+                <option>ymauto</option>
+                <option>ymhand</option>
+                <option>zika_1</option>
+                <option>zika_2</option>
+                <option>696</option>
+                <option>kenyam</option>
+                <option>snail</option>
+                <option id="taset" disabled=true>textarea</option>
+            </select>
+
+                [第 <select id="number" onchange="javascript:sokoLevelNumberChange()">
+                <option selected="selected" id="n1">1</option>
+            </select>  关]
+                <INPUT TYPE="TEXT" NAME="ln" size="5">
+                <input type="button" value="选关" onclick="javascript:sokoGoTo()">  [
+                <input type="button" value="比赛" onclick="javascript:sokoLoadCompetitionLevel()">
+                <input type="button" value="提交" onclick="javascript:sokoLoadCompetitionSubmit()"> ]
+
+                <p>
+                <div id="play">
+                    <input type ="button" value="进入编辑模式" onclick="javascript:sokoToggle(0)">
+                    <input type ="button" value="进入逆推模式" onclick="javascript:sokoReversedToggle()">
+                </div><div id="nonplay">
+                <input type ="button" value="进入游戏模式" onclick="javascript:sokoEnterPlayMode()">
+            </div>
+
+                <div id="etool">
+                    选择工具: <input type ="button" value="人" onclick="javascript:sokoSetTool(1)">
+                    <input type ="button" value="墙体" onclick="javascript:sokoSetTool(2)">
+                    <input type ="button" value="箱子" onclick="javascript:sokoSetTool(3)">
+                    <input type ="button" value="目标" onclick="javascript:sokoSetTool(4)">
+                    <input type ="button" value="橡皮擦" onclick="javascript:sokoSetTool(5)">
+                    <input type ="button" value="加列" onclick="javascript:sokoSetTool(6)">
+                    <input type ="button" value="加行" onclick="javascript:sokoSetTool(7)">
+                    <input type ="button" value="删列" onclick="javascript:sokoSetTool(9)">
+                    <input type ="button" value="删行" onclick="javascript:sokoSetTool(10)">
+                    <input type ="button" value="区域选择" onclick="javascript:sokoSetTool(8)"><br>
+
+                    区域操作: <input type="button" value="复制" onclick="javascript:sokoSelectCopy(0)">
+                    <input type="button" value="剪切" onclick="javascript:sokoSelectCopy(1)">
+                    <input type="button" value="粘贴" onclick="javascript:sokoSelectPaste(0)">
+                    <input type="button" value="融入" onclick="javascript:sokoSelectPaste(1)">
+                    <input type="checkbox" id="merge"/>
+                    <input type="button" value=">" onclick="javascript:sokoSelectTransform(0)">
+                    <input type="button" value="|" onclick="javascript:sokoSelectTransform(1)">
+                    <input type="button" value="边界加墙" onclick="javascript:sokoSelectEnclosedWall()">
+                    <input type="button" value="填充墙体" onclick="javascript:sokoSelectFill(2)">
+                    <input type="button" value="填充空位" onclick="javascript:sokoSelectFill(1)"><br>
+
+                    关卡操作: <input type ="button" value="撤销" onclick="javascript:sokoEditPop()">
+                    <input type ="button" value="清空" onclick="javascript:sokoClear()">
+                    <input type ="button" value="清空目标" onclick="javascript:sokoClearTarget()">
+                    <input type ="button" value="清空箱子" onclick="javascript:sokoClearBox()">
+                    <input type ="button" value="辅助边框" onclick="javascript:sokoAddPerimeter()">
+                    <input type ="button" value="退出" onclick="javascript:sokoToggle(0)">
+                    <input type ="button" value="保存并退出" onclick="javascript:sokoToggle(1)">
+                    标准化:<input type="checkbox" id="norm"/>
+                    覆盖:<input type="checkbox" id="overwrite"/>
+                    <br>
+
+                    关卡信息: <input type ="button" value="编辑标题" onclick="javascript:sokoEditTitle()">
+                    <input type ="button" value="编辑作者" onclick="javascript:sokoEditAuthor()">
+                    <input type ="button" value="数空位" onclick="javascript:sokoCountSpace()">
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <p> <table><tr>
+        <td><div id="mp"> </div>  </td>
+        <td><div id="ta"> </div> </td>
+        <td><div id="r"></div> </td>
+        <td><div id="ori"></div></td>
+        <td><div id="ee"></div></td>
+        <td> <font color="red"><b><div id="rmode"></div></b></font> </td>
+    </tr></table>
+
+        <p><canvas id="soko" width="304" height="176" style="-webkit-tap-highlight-color: transparent">
+            Sorry your browser does not support Canvas.
+        </canvas>
+
+            <div id="lowermenu">
+
+
+        <p> <form name="info">
+            <input type="button" value="重置关卡" onclick="javascript:sokoRestartButton()">
+            <input type="button" value="标准化" onclick="javascript:sokoNormalizeButton()">
+            <input type="button" value="|<" onclick="javascript:sokoBackward()">
+            <input type="button" value="<" onclick="javascript:sokoUndoButton()">
+            <input type="button" value="||" onclick="javascript:sokoStop()">
+            <input type="button" value=">" onclick="javascript:sokoRedoButton()">
+            <input type="button" value=">|" onclick="javascript:sokoForward()">
+            IM:<input type="checkbox" id="im"/>
+            Go-Thru:<input type="checkbox" id="thru"/>
+            <input type="button" value="输出关卡" onclick="javascript:sokoPrintLevelButton()">
+            <input type="button" value="输出答案" onclick="javascript:sokoPrintSolutionButton()">
+            <input type="button" value="输出链接" onclick="javascript:sokoPrintURLButton()" style="display:none">
+            <!--<input type="button" value="下载XSB" onclick="javascript:sokoDownloadXSB()">--> <br>
+
+            <!--
+
+            <img src="cloud.png"> 云:
+            <input type="button" value="查询最佳答案" onclick="javascript:sokoQueryFromParse()">
+            <input type="button" value="提交答案" onclick="javascript:sokoSubmitToParse()">
+
+            <div id="nonuser">
+            用户名：<input type="text" name="log1" size="15">
+            密码：<input type="password" name="log2" size="15">
+            <input type="button" value="登录" onclick="javascript:sokoLogin()">
+            重复密码：<input type="password" name="log4" size="15">
+            email: <input type="text" name="log3" size="15">
+            <input type="button" value="注册" onclick="javascript:sokoSignup()">
+            </div>
+
+            <div id="user">
+            <table><tr>
+            <td>用户名：</td>
+            <td> <div id="userid"> </div> </td>
+            <td> <div id="country"> <img src="../flags/00.png"> </div> </td>
+            <td> <input type="button" value="退出" onclick="javascript:sokoLogout()"> </td>
+            <td> <input type="button" value="重置密码" onclick="javascript:sokoResetPassword()"> </td>
+            <td> <input type="button" value="国家/地区" onclick="javascript:sokoSetCountry()"> </td>
+            <td> 云存档:<select id="cslot">
+            <option>1</option>
+            </select>  </td>
+            <td> <input type="button" value="保存" onclick="javascript:sokoCloudSlotSave()">  </td>
+            <td> <input type="button" value="读取" onclick="javascript:sokoCloudSlotLoad()"> </td>
+            <td> <input type="button" value="检查" onclick="javascript:sokoCloudSlotCheck()"> </td>
+            </tr></table>
+            </div>
+            <br>
+
+            -->
+
+
+            <select id="slot" onchange="javascript:sokoSlotChange()" style="display:none">
+                <option>0</option>
+            </select>
+            <INPUT TYPE="TEXT" NAME="label" size="15" style="display:none">
+            <input type="button" value="保存" onclick="javascript:sokoSlotSave()" style="display:none">
+            <input type="button" value="读取" onclick="javascript:sokoSlotLoad()" style="display:none">
+            <input type="button" value="删除" onclick="javascript:sokoSlotDelete()" style="display:none">
+            <input type="button" value="检查" onclick="javascript:sokoSlotCheck()" style="display:none">
+            <input type="button" value="读取全部" onclick="javascript:sokoSlotLoadAll()" style="display:none">
+            <input type="button" value="清空" onclick="javascript:sokoSlotClear()" style="display:none">
+            <input type="checkbox" id="safe" style="display:none"/>
+            <input type="button" value="发送邮件" onclick="javascript:sokoSendEmail()" style="display:none">
+            <input type="button" value="@" onclick="javascript:sokoSetEmail()" style="display:none">
+
+
+            <input type="button" value="载入答案" onclick="javascript:sokoLoadSolution()">
+            u2U:<input type="checkbox" id="case"/>
+            <input type ="button" value="载入关卡" onclick="javascript:sokoLoadXSB()">
+            2slot:<input type="checkbox" id="2slot"/>
+            <input type="button" value="清空编辑框" onclick="javascript:clearTextArea()">
+            <input type='file' id='fileinput' style="display:none">
+            <input type='button' id='btnLoad' value='载入文件' onclick="javascript:sokoLoadFile()" style="display:none">
+        <p> <TEXTAREA name="lurd" id="drop" rows=8 cols=40></TEXTAREA>
+
+            </form>
+
+</div>
+
+<!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
+-->
+<script type="text/javascript">function sokoCountSpace(){for(var e=0,r=0,n=0;n<w-1;n++)for(var o=0;o<h;o++)switch(level[o*w+n]){case"@":case"+":e=n,r=o}if(0==e)return document.info.lurd.value="error: no man.",void(document.getElementById("ee").innerHTML="(-)");for(var a=new Array,l=new Array,n=0;n<level.length+1;n++)a[n]=0;var t,d=tail=0;for(l[0]=r*w+e,a[r*w+e]=1,d4[2]=w,d4[3]=-1*w;d<=tail;){t=l[d];for(var n=0;4>n;n++)"#"!=level[t+d4[n]]&&0==a[t+d4[n]]&&(a[t+d4[n]]=1,tail++,l[tail]=t+d4[n]);d++}document.info.lurd.value=d,document.getElementById("ee").innerHTML="("+d+")"}
+
+
+function sokoLoadCompetitionSubmit(){var a=Parse.User.current();if(null==a)alert("Please log in first!");else if(is_edit||reversed)alert("not in play mode!");else{for(var b=0;b<w*h-1;b++)if("."==level[b]||"$"==level[b]||"+"==level[b]){alert("no solution yet!");return}b=a.get("country");if(null==b||2!=b.length||"00"==b)alert("Please set your country/region first!");else{var a="nickname="+a.get("username")+"&country="+b+"&email="+a.get("email")+"&lurd="+solution,c;c=window.XMLHttpRequest?new XMLHttpRequest:
+    new ActiveXObject("Microsoft.XMLHTTP");c.onreadystatechange=function(){4==c.readyState&&200==c.status&&(-1<c.responseText.indexOf("NOT correct")?alert("submitted solution is not correct."):alert("Congratulations! Solution submitted!"))};c.open("POST","http://sokoban.ws/submit_result.php",!0);c.setRequestHeader("Content-type","application/x-www-form-urlencoded");c.setRequestHeader("Content-length",a.length);c.setRequestHeader("Connection","close");c.send(a)}}}
+function sokoLoadCompetitionLevel(){var a=document.menu.ln.value,b;b=window.XMLHttpRequest?new XMLHttpRequest:new ActiveXObject("Microsoft.XMLHTTP");b.onreadystatechange=function(){if(4==b.readyState&&200==b.status){var a=JSON.parse(b.responseText);a.error?alert(a.error):a.main?(document.info.lurd.value=a.main.level.replace(/\|/g,"\n"),document.info.lurd.value+="\nTitle:"+a.main.title,document.info.lurd.value+="\nAuthor:"+a.main.author,a.extra&&(document.info.lurd.value+="\n\n",document.info.lurd.value+=
+    a.extra.level.replace(/\|/g,"\n"),document.info.lurd.value+="\nTitle:"+a.extra.title,document.info.lurd.value+="\nAuthor:"+a.extra.author),sokoLoadXSB()):alert("Competition #"+a.id+" will begin on "+a.begin)}};b.open("GET","http://sokoban.ws/api/competition/?id="+a,!0);b.send()}
+function sokoSetCountry(){var a=prompt("Enter country code (ccTLD)","").toUpperCase();null!=a&&Parse.User.current().save({country:a},{success:function(){document.getElementById("country").innerHTML='<img src="../flags/'+a+'.png">';sokoLogout();alert("Country/Region is set to "+a+". Please login again.")},error:function(a,c){alert("Error: "+c.code+" "+c.message)}})}
+function sokoSignup(){var a,b=document.info.log1.value,c=document.info.log2.value,d=document.info.log3.value,e=document.info.log4.value;0==b.length?alert("user name missing."):0==c.length?alert("password missing!"):c!=e?alert("password not match!"):0==d.length?alert("email address missing!"):(new Parse.Query(SokoSettings)).get("D4dBhUnk1m",{success:function(e){var g=e.get("user");0==g?alert("registration closed."):(a=new Parse.User,a.set("username",b),a.set("password",c),a.set("email",d),a.signUp(null,
+        {success:function(){e.set("user",g-1);e.save(null,{success:function(){},error:function(){}});for(var a,c=1;30>=c;c++)a=new SokoSlot,a.set("no",c),a.set("owner",b),a.save(null,{success:function(){},error:function(){}});document.info.log1.value="";document.info.log2.value="";document.info.log3.value="";document.info.log4.value="";alert("User "+b+" created. You can now login with your username and password.");sokoLogout()},error:function(a,b){alert("Error: "+b.code+" "+b.message)}}))},error:function(a){alert("Error: "+
+        a.code+" "+a.message)}})}function sokoResetPassword(){Parse.User.requestPasswordReset(Parse.User.current().get("email"),{success:function(){alert("Check your email to complete the password reset process.")},error:function(a){alert("Error: "+a.code+" "+a.message)}})}
+function sokoCloudSlotCheck(){document.info.lurd.value="";var a;a=new Parse.Query(SokoSlot);a.equalTo("owner",Parse.User.current().get("username"));a.ascending("no");a.find({success:function(a){for(var c=1;30>=c;c++)a[c-1].get("level")&&(document.info.lurd.value+=c+":[Title]"+a[c-1].get("title")+"[Author]"+a[c-1].get("author")+"\n")},error:function(a){alert("Error: "+a.code+" "+a.message)}})}
+function sokoCloudSlotLoad(){var a=document.getElementById("cslot").value;if(reversed)document.info.lurd.value="can't load in reversed mode.";else{var b;b=new Parse.Query(SokoSlot);b.equalTo("owner",Parse.User.current().get("username"));b.equalTo("no",parseInt(a));b.first({success:function(a){document.info.lurd.value=a.get("level").replace(/\|/g,"\n");document.info.lurd.value+="\nTitle:"+a.get("title");document.info.lurd.value+="\nAuthor:"+a.get("author");sokoLoadXSB();solution=a.get("solution");
+        tid=setInterval(sokoAuto,20)},error:function(a){alert("Error: "+a.code+" "+a.message)}})}}
+function sokoCloudSlotSave(){var a=document.getElementById("cslot").value;if(reversed)document.info.lurd.value="can't save in reversed mode.";else{var b;b=new Parse.Query(SokoSlot);b.equalTo("owner",Parse.User.current().get("username"));b.equalTo("no",parseInt(a));b.first({success:function(a){a.set("level",levelset[current]);a.set("title",title[current]);author_array?a.set("author",author[current]):a.set("author",author);a.set("solution",solution.substr(0,m));a.save(null,{success:function(){alert("Saved!")},
+        error:function(){}})},error:function(a){alert("Error: "+a.code+" "+a.message)}})}}function sokoCloudSlotInit(){for(var a=2;30>=a;a++)addOption(document.getElementById("cslot"),a,a)}
+function sokoCheckUser(){var a=Parse.User.current();a?(document.getElementById("user").style.display="block",document.getElementById("nonuser").style.display="none",document.getElementById("userid").innerHTML=a.get("username"),document.getElementById("country").innerHTML='<img src="../flags/'+(a.get("country")||"00")+'.png">',new_player_name=a.get("username")):(document.getElementById("user").style.display="none",document.getElementById("nonuser").style.display="block")}
+function sokoLogout(){Parse.User.logOut();document.getElementById("user").style.display="none";document.getElementById("nonuser").style.display="block";document.info.log1.value="";document.info.log2.value=""}
+function sokoLogin(){var a="",a=document.info.log1.value;Parse.User.logIn(a,document.info.log2.value,{success:function(b){document.getElementById("user").style.display="block";document.getElementById("nonuser").style.display="none";document.getElementById("userid").innerHTML=a;document.getElementById("country").innerHTML='<img src="../flags/'+(b.get("country")||"00")+'.png">';new_player_name=a},error:function(){}})}
+function sokoSubmitToParse(){var a,b=0,c="";if(is_edit||reversed)alert("not in play mode!");else{for(a=0;a<w*h-1;a++)if("."==level[a]||"$"==level[a]||"+"==level[a]){alert("no solution yet!");return}a=new Parse.Query(SokoScore);a.equalTo("levelset",document.getElementById("set").value);a.equalTo("level",current+1);a.first({success:function(a){if(m<a.get("bestmm")||m==a.get("bestmm")&&p<a.get("bestmp"))new_player_name=prompt("Enter your name (M)",new_player_name),a.set("bestmm",m),a.set("bestmp",p),
+        a.set("bestm_id",new_player_name),a.set("bestm",solution),a.save(null,{success:function(){},error:function(a,b){alert("Error: "+b.code+" "+b.message)}}),b=1,c+="MOVE";if(p<a.get("bestpp")||p==a.get("bestpp")&&m<a.get("bestpm"))new_player_name=prompt("Enter your name (P)",new_player_name),a.set("bestpm",m),a.set("bestpp",p),a.set("bestp_id",new_player_name),a.set("bestp",solution),a.save(null,{success:function(){},error:function(a,b){alert("Error: "+b.code+" "+b.message)}}),b=1,c+=" & PUSH";0==b?alert("You don't have a better solution."):
+        alert("Your have submitted a better "+c+" solution to the cloud.")},error:function(a){alert("Error: "+a.code+" "+a.message)}})}}
+function sokoQueryFromParse(){var a;a=new Parse.Query(SokoScore);a.equalTo("levelset",document.getElementById("set").value);a.equalTo("level",current+1);a.first({success:function(a){alert("Best Move: "+a.get("bestmm")+"/"+a.get("bestmp")+" by "+a.get("bestm_id")+"\nBest Push: "+a.get("bestpm")+"/"+a.get("bestpp")+" by "+a.get("bestp_id"))},error:function(a){alert("Error: "+a.code+" "+a.message)}})}
+function sokoPlayerTo2b(a,b,c,d){if(c==d)return 1;if("#"==a[d]||"$"==a[d]||"*"==a[d])return 0;if(0==cut[b])return 1;for(a=0;a<block[c].length;a++)for(b=0;b<block[d].length;b++)if(block[c][a]==block[d][b])return 1;return 0}
+function sokoFindBlocks(){var a=[],a=level.split("");a[sbox]="$"==a[sbox]?"-":".";a[py*w+px]="@"==a[py*w+px]?"-":".";for(var b=0,c=[],d=[],e=[],f=0;f<w*h;f++)c[f]=0;for(f=0;f<w*h;f++)d[f]=0;for(f=0;f<w*h;f++)e[f]=0;for(f=0;f<w*h;f++)block[f]=[];for(f=0;f<w*h;f++)cut[f]=0;for(var g=[],f=0;f<w*h;f++)g[f]=[];var o=1,l=w*h,k=function(a){block[a].push(l);for(var b=0;b<g[a].length;b++)k(g[a][b])},q=function(f){b++;c[f]=b;d[f]=b;a[f]="v";var n;for(n=0;4>n;n++)if("v"==a[f+d4[n]])e[f]!=f+d4[n]&&c[f+d4[n]]<
+d[f]&&(d[f]=c[f+d4[n]]);else if("-"==a[f+d4[n]]||"."==a[f+d4[n]])e[f+d4[n]]=f,g[f].push(f+d4[n]),q(f+d4[n]),d[f+d4[n]]<d[f]?d[f]=d[f+d4[n]]:d[f+d4[n]]>=c[f]&&f!=sbox&&(0==cut[f]&&(cut[f]=o,o++),block[f].push(l),k(f+d4[n]),l--,g[f].pop());b--};q(sbox);for(var s=0,f=0;f<g[sbox].length;f++)s++,block[sbox].push(l),k(g[sbox][f]),l--;2<=s?cut[sbox]=o:o--}function sokoEnterPlayMode(){reversed?sokoReversedToggle():is_edit&&sokoToggle(1)}
+function sokoReversedAutoRedo(){sokoReversedRedo();undop--;var a=0;if(document.getElementById("im").checked){for(;0<undop&&4999>a;)sokoReversedRedo(),undop--,a++;sokoDraw(0)}sokoDraw(1);document.getElementById("mp").innerHTML=m+"/"+p;0==undop&&(clearInterval(tid),tid=0)}
+function sokoReversedAutoUndo(){switch(sokoReversedUndo2()){case 0:case 1:var a=0,b=1;if(document.getElementById("im").checked){for(;4999>a&&!(a++,b=sokoReversedUndo2(),2==b););sokoDraw(0);2==b&&(clearInterval(tid),urbox=tid=0)}sokoDraw(1);document.getElementById("mp").innerHTML=m+"/"+p;break;case 2:sokoDraw(1),document.getElementById("mp").innerHTML=m+"/"+p,clearInterval(tid),urbox=tid=0}}
+function sokoReversedUndo2(){var a,b,c=0;if(0==m)return 2;m--;switch(solution[m]){case "l":case "L":a=-1;b=0;break;case "r":case "R":a=1;b=0;break;case "u":case "U":a=0;b=-1;break;case "d":case "D":a=0,b=1}switch(solution[m]){case "l":case "u":case "r":case "d":level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,".");level="-"==level[(py-b)*w+px-a]?setCharAt(level,(py-b)*w+px-a,"@"):setCharAt(level,(py-b)*w+px-a,"+");px-=a;py-=b;break;case "L":case "U":case "R":case "D":if(0!=
+    urbox&&urbox!=(py-b)*w+(px-a))return m++,urbox=0,2;c=1;urbox=(py-2*b)*w+px-2*a;level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,".");level="$"==level[(py-b)*w+px-a]?setCharAt(level,(py-b)*w+px-a,"@"):setCharAt(level,(py-b)*w+px-a,"+");level="-"==level[(py-2*b)*w+px-2*a]?setCharAt(level,(py-2*b)*w+px-2*a,"$"):setCharAt(level,(py-2*b)*w+px-2*a,"*");px-=a;py-=b;p--}return c}
+function sokoReversedAuto(){switch(sokoReversedRedo()){case 1:sokoIsSolved();var a=0,b=1;if(document.getElementById("im").checked){for(;4999>a&&!(a++,b=sokoReversedRedo(),2==b||0==b););sokoIsSolved();sokoDraw(0);if(2==b||0==b)clearInterval(tid),tid=0}sokoDraw(1);document.getElementById("mp").innerHTML=m+"/"+p;break;case 0:clearInterval(tid),tid=0}}
+function sokoReversedBoxHint(){var a=setCharAt(level,sbox,"$"==level[sbox]?"-":"."),a=setCharAt(a,py*w+px,"@"==a[py*w+px]?"-":".");zhead=ztail=2;var b;zq[2]=0;b=[];for(var c,d=0;d<w*h;d++)gothru[d]=0;for(d=0;d<4*w*h;d++)ztag[d]=0,zd[d]=0;for(d=0;4>d;d++)b[d]=sokoPlayerTo2(a,sbox,py*w+px,sbox+d4[d]),1<=b[d]&&(ztag[w*h*d+sbox]=1,0==zq[2]?(zq[2]=w*h*d+sbox,c=d):b[d]<b[c]&&(c=d,zq[2]=w*h*d+sbox));if(0==zq[2]){for(d=0;d<w*h;d++)bhint[d]=0;return 0}for(;zhead<=ztail;){b=zq[zhead]%(w*h);for(d=0;4>d;d++)if(("-"==
+    a[b+2*d4[d]]||"."==a[b+2*d4[d]])&&0==ztag[d*w*h+(b+d4[d])]&&ztag[zq[zhead]]==ztag[d*w*h+b]){ztail++;zq[ztail]=d*w*h+(b+d4[d]);for(c=0;4>c;c++)0==ztag[c*w*h+(b+d4[d])]&&1<=sokoPlayerTo2(a,b+d4[d],b+2*d4[d],b+d4[d]+d4[c])&&(ztag[c*w*h+(b+d4[d])]=zhead);zd[d*w*h+(b+d4[d])]=zhead}zhead++}for(d=0;d<w*h;d++)for(c=bhint[d]=0;4>c;c++)if(0!=ztag[c*w*h+d]){bhint[d]=1;break}bhint[sbox]=0;hint=1}
+function sokoReversedRedo(){var a,b;if(m==solution.length)return 0;switch(solution[m]){case "l":case "L":a=-1;b=0;break;case "r":case "R":a=1;b=0;break;case "u":case "U":a=0;b=-1;break;case "d":case "D":a=0,b=1}switch(solution[m]){case "l":case "u":case "r":case "d":level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,".");level="-"==level[(py+b)*w+px+a]?setCharAt(level,(py+b)*w+px+a,"@"):setCharAt(level,(py+b)*w+px+a,"+");px+=a;py+=b;break;case "L":case "U":case "R":case "D":level=
+    "@"==level[py*w+px]?setCharAt(level,py*w+px,"$"):setCharAt(level,py*w+px,"*"),level="-"==level[(py+b)*w+px+a]?setCharAt(level,(py+b)*w+px+a,"@"):setCharAt(level,(py+b)*w+px+a,"+"),level="$"==level[(py-b)*w+px-a]?setCharAt(level,(py-b)*w+px-a,"-"):setCharAt(level,(py-b)*w+px-a,"."),px+=a,py+=b,p++}m++;return 1}
+function sokoReversedUndo(){var a,b;if(0==m)return 0;m--;switch(solution[m]){case "l":case "L":a=-1;b=0;break;case "r":case "R":a=1;b=0;break;case "u":case "U":a=0;b=-1;break;case "d":case "D":a=0,b=1}switch(solution[m]){case "l":case "u":case "r":case "d":level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,".");level="-"==level[(py-b)*w+px-a]?setCharAt(level,(py-b)*w+px-a,"@"):setCharAt(level,(py-b)*w+px-a,"+");px-=a;py-=b;break;case "L":case "U":case "R":case "D":level=
+    "@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,"."),level="$"==level[(py-b)*w+px-a]?setCharAt(level,(py-b)*w+px-a,"@"):setCharAt(level,(py-b)*w+px-a,"+"),level="-"==level[(py-2*b)*w+px-2*a]?setCharAt(level,(py-2*b)*w+px-2*a,"$"):setCharAt(level,(py-2*b)*w+px-2*a,"*"),px-=a,py-=b,p--}return 1}
+function sokoReversedMove(a){var b,c;switch(a){case "l":case "L":b=-1;c=0;break;case "r":case "R":b=1;c=0;break;case "u":case "U":b=0;c=-1;break;case "d":case "D":b=0,c=1}if("-"==level[(py+c)*w+px+b]||"."==level[(py+c)*w+px+b])level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,"."),level="-"==level[(py+c)*w+px+b]?setCharAt(level,(py+c)*w+px+b,"@"):setCharAt(level,(py+c)*w+px+b,"+"),px+=b,py+=c,p&&(solution=solution.substr(0,m)+a,m++)}
+function sokoReversedPull(a){var b,c;switch(a){case "l":case "L":b=-1;c=0;break;case "r":case "R":b=1;c=0;break;case "u":case "U":b=0;c=-1;break;case "d":case "D":b=0,c=1}if(("-"==level[(py+c)*w+px+b]||"."==level[(py+c)*w+px+b])&&("$"==level[(py-c)*w+px-b]||"*"==level[(py-c)*w+px-b]))level="@"==level[py*w+px]?setCharAt(level,py*w+px,"$"):setCharAt(level,py*w+px,"*"),level="-"==level[(py+c)*w+px+b]?setCharAt(level,(py+c)*w+px+b,"@"):setCharAt(level,(py+c)*w+px+b,"+"),level="$"==level[(py-c)*w+px-b]?
+    setCharAt(level,(py-c)*w+px-b,"-"):setCharAt(level,(py-c)*w+px-b,"."),px+=b,py+=c,solution=solution.substr(0,m)+a.toUpperCase(),m++,p++}function sokoReversedSetPusher(a){level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,".");"-"==level[a]?level=setCharAt(level,a,"@"):"."==level[a]&&(level=setCharAt(level,a,"+"));px=a%w;py=Math.floor(a/w)}
+function sokoReversedToggle(){if(1!=is_edit)0==reversed?(sokoReversedInit(),document.getElementById("rmode").innerHTML="R",document.getElementById("nonplay").style.display="block",document.getElementById("play").style.display="none"):(document.getElementById("rmode").innerHTML="P",document.getElementById("nonplay").style.display="none",document.getElementById("play").style.display="block",sokoPrintSolutionButton(),rpx=-1,reversed=rpy=0,sokoRestart(),sbox=hint=vhint=whint=0,sokoDraw(0),document.getElementById("mp").innerHTML=
+    m+"/"+p)}
+function sokoReversedInit(){man=1;var a="";level=level0;sokoFindPusher();for(var b=0;b<w*h-1;b++)switch(level[b]){case "$":a+=".";break;case ".":a+="$";break;case "+":a+="$";man=0;break;default:a+=level[b]}level=a;rpx=px;rpy=py;if(0==man)for(b=0;b<w*h-1;b++)if(("-"==level[b]||"."==level[b])&&("$"==level[b+1]||"$"==level[b-1]||"$"==level[b+w]||"$"==level[b-w]||"*"==level[b+1]||"*"==level[b-1]||"*"==level[b+w]||"*"==level[b-w])){level="-"==level[b]?setCharAt(level,b,"@"):setCharAt(level,b,"+");px=b%
+    w;py=Math.floor(b/w);break}jpx=px;jpy=py;p=m=sbox=hint=vhint=whint=0;solution="";solved=0;sokoDraw(0);document.getElementById("mp").innerHTML=m+"/"+p;reversed=1}
+function sokoSetEmail(){var a,b=document.info.lurd.value;if(0<b.length)for(a=0;a<b.length;a++){if("\n"===b[a]||"#"===b[a]||"*"===b[a]||"|"===b[a]){a=1;break}if("@"===b[a]){a=0;break}}else a=1;0===a?(localStorage.setItem("email",b),document.info.lurd.value="# Email address saved # "+b):document.info.lurd.value="# Not a valid email address # \n current email = "+localStorage.getItem("email")}
+function sokoSendEmail(){var a=localStorage.getItem("email")||"",b=solution;sokoRestartButton();sokoPrintURLButton();window.open("mailto:"+a+"?subject=[SokoPlayer HTML5]&body="+encodeURIComponent(document.info.lurd.value+"\n\n"+level0.replace(/\|/g,"\n")+"\n\n")+b);document.info.lurd.value=b}function sokoPlaySound(a){if(document.getElementById("sound").checked&&!reversed)switch(a){case 1:document.getElementById("uhoh").play();break;case 2:document.getElementById("ovation").play()}}
+function sokoFullScreen(){var a=document.getElementById("main");a.requestFullscreen?a.requestFullscreen():a.mozRequestFullScreen?a.mozRequestFullScreen():a.webkitRequestFullScreen&&a.webkitRequestFullScreen()}function sokoFullScreenExit(){document.exitFullscreen?document.exitFullscreen():document.mozCancelFullScreen?document.mozCancelFullScreen():document.webkitCancelFullScreen&&document.webkitCancelFullScreen()}
+function sokoPrintJSButton(){document.info.lurd.value="function sokoLoadLevelset(){\n\n";document.info.lurd.value+="levelset=new Array(";for(var a=1;a<total-1;a++)document.info.lurd.value+='"'+levelset[a]+'",\n';document.info.lurd.value+='"'+levelset[total-1]+'"\n);\n\n';document.info.lurd.value+="total="+(total-1)+";\n\n";document.info.lurd.value+="current=0;\n\n";document.info.lurd.value+="title=new Array(";for(a=1;a<total-1;a++)0==a%50&&(document.info.lurd.value+="\n"),document.info.lurd.value+=
+    '"",';document.info.lurd.value+='"");\n\n';document.info.lurd.value+='author="";\n\n';document.info.lurd.value+="author_array=0;\n\n";document.info.lurd.value+="};\n\n"}function dragenter(a){a.stopPropagation();a.preventDefault()}function dragover(a){a.stopPropagation();a.preventDefault()}
+function drop(a){a.stopPropagation();a.preventDefault();var a=a.dataTransfer.files,b=new FileReader;b.onload=function(){document.info.lurd.value+=b.result};for(document.info.lurd.value="";0<a.length;){a=a[0];b.readAsText(a);break}}
+function sokoSaveSettings(){localStorage.setItem("level",levelset[current]);author_array?localStorage.setItem("label",title[current]+"\nAuthor:"+author[current]):localStorage.setItem("label",title[current]+"\nAuthor:"+author);is_edit||reversed?localStorage.setItem("solution",""):localStorage.setItem("solution",solution.substr(0,m));document.getElementById("im").checked?localStorage.setItem("im",1):localStorage.setItem("im",0);document.getElementById("thru").checked?localStorage.setItem("thru",1):
+    localStorage.setItem("thru",0);document.getElementById("sound").checked?localStorage.setItem("sound",1):localStorage.setItem("sound",0)}
+function sokoLoadSettings(){if(null===localStorage.getItem("im"))preload||sokoLevelsetChange(0);else{if("1"===localStorage.getItem("im"))document.getElementById("im").checked=!0;if("1"===localStorage.getItem("thru"))document.getElementById("thru").checked=!0;if("1"===localStorage.getItem("sound"))document.getElementById("sound").checked=!0;if(!preload)document.info.lurd.value=localStorage.getItem("level").replace(/\|/g,"\n"),document.info.lurd.value+="\nTitle:"+localStorage.getItem("label"),sokoLoadXSB(),
+    solution=localStorage.getItem("solution"),tid=setInterval(sokoAuto,20)}}function sokoSlotSave(){var a=document.getElementById("slot").value;reversed?document.info.lurd.value="can't save in reversed mode.":(localStorage.setItem("level"+a,levelset[current]),author_array?localStorage.setItem("label"+a,title[current]+"\nAuthor:"+author[current]):localStorage.setItem("label"+a,title[current]+"\nAuthor:"+author),localStorage.setItem("solution"+a,solution.substr(0,m)))}
+function sokoSlotLoad(){var a=document.getElementById("slot").value;document.info.lurd.value=localStorage.getItem("level"+a).replace(/\|/g,"\n");document.info.lurd.value+="\nTitle:"+localStorage.getItem("label"+a);sokoLoadXSB();solution=localStorage.getItem("solution"+a);tid=setInterval(sokoAuto,20)}
+function sokoSlotLoadAll(){var a;document.info.lurd.value="";for(var b=0;200>b;b++)a=localStorage.getItem("level"+b),null===a||0==a.length||(document.info.lurd.value+=localStorage.getItem("level"+b).replace(/\|/g,"\n"),document.info.lurd.value+="\nTitle:"+localStorage.getItem("label"+b)+"\n\n");sokoLoadXSB()}function sokoSlotChange(){var a=document.getElementById("slot").value;document.info.label.value=localStorage.getItem("label"+a)}
+function sokoSlotInit(){for(var a=1;200>a;a++)addOption(document.getElementById("slot"),a,a)}function sokoSlotCheck(){var a;document.info.lurd.value="";for(var b=0;200>b;b++)a=localStorage.getItem("level"+b),null!==a&&0<a.length&&(document.info.lurd.value+=b+" - "+localStorage.getItem("label"+b)+"\n")}
+function sokoSlotDelete(){if(document.getElementById("safe").checked){var a=document.getElementById("slot").value;localStorage.setItem("level"+a,"");localStorage.setItem("label"+a,"");localStorage.setItem("solution"+a,"");document.getElementById("safe").checked=!1;document.info.lurd.value="deleted!"}else document.info.lurd.value="check the checkbox to perform deleting task!"}
+function sokoSlotClear(){if(document.getElementById("safe").checked){for(var a=0;200>a;a++)localStorage.setItem("level"+a,""),localStorage.setItem("label"+a,""),localStorage.setItem("solution"+a,"");document.getElementById("safe").checked=!1;document.info.lurd.value="slots cleared!"}else document.info.lurd.value="check the checkbox to perform deleting task!"}
+function sokoShowTitleAuthor(){if(0==author_array)document.getElementById("ta").innerHTML="["+title[current]+" - "+author+"]";else if(1==author_array)document.getElementById("ta").innerHTML="["+title[current]+" - "+author[current]+"]"}function sokoEditTitle(){var a=prompt("Title",title[current]);null!=a&&(title[current]=a,sokoShowTitleAuthor())}
+function sokoEditAuthor(){var a=null,a=1==author_array?prompt("Author",author[current]):prompt("Author",author);null!=a&&(author_array?author[current]=a:author=a,sokoShowTitleAuthor())}
+function sokoDeleteEmptyLines(){var a,b,c;for(a=h-1;0<=a;a--){c=1;for(b=w-2;0<=b;b--)if("-"!=level[a*w+b]){c=0;break}1==c&&(level=level.substr(0,a*w)+level.substr((a+1)*w),h--)}for(a=w-2;0<=a;a--){c=1;for(b=h-1;0<=b;b--)if("-"!=level[b*w+a]){c=0;break}if(c){for(b=h-1;0<=b;b--)level=level.substr(0,b*w+a)+level.substr(b*w+a+1);w--}}}function sokoEditPush(){editstack.push(level);editstack.push(w);editstack.push(h)}
+function sokoEditPop(){if(0<selected.length&&8==tool)selected="",sokoDraw(0);else if(0!=editstack.length)h=editstack.pop(),w=editstack.pop(),level=editstack.pop(),canvas.height=h*size,canvas.width=(w-1)*size,sokoDraw(0),sokoCountBox()}
+function sokoSelectTransform(a){var b,c=selected;if(0!=selected.length){selected="";switch(a){case 0:for(a=0;a<selectedw;a++)for(b=selectedh-1;0<=b;b--)selected+=c[b*selectedw+a];selectedw=selectedh;selectedh=a;break;case 1:for(a=0;a<selectedh;a++)for(b=selectedw-1;0<=b;b--)selected+=c[a*selectedw+b]}sokoDraw(0);sokoDrawSelected()}}
+function sokoCountBox(){for(var a=0,b=0,c=0;c<level.length;c++)switch(level[c]){case ".":case "+":b++;break;case "*":b++;case "$":a++}document.getElementById("ee").innerHTML="<"+a+":"+b+">"}function sokoCountBox2(){var a=0,b=0,c,d,e;sely<sel2y?(c=sely,d=sel2y):(c=sel2y,d=sely);selx<sel2x?(e=selx,i2=sel2x):(e=sel2x,i2=selx);for(;c<=d;c++)for(var f=e;f<=i2;f++)switch(level[c*w+f]){case ".":case "+":b++;break;case "*":b++;case "$":a++}document.getElementById("ee").innerHTML="<"+a+":"+b+">"}
+function sokoAddPerimeter(){for(var a="",b=0;b<w;b++)a+="-";sokoEditPush();level=a+"|"+level+"|"+a;level=level.replace(/\|/g,"-|-");w+=2;h+=2;canvas.height=h*size;canvas.width=(w-1)*size;sbox=hint=vhint=whint=0;sokoDraw(0)}
+function sokoToggle(a){if(!(0!=tid||reversed)){if("block"==document.getElementById("etool").style.display)document.getElementById("etool").style.display="none",document.getElementById("rmode").innerHTML="P",document.getElementById("nonplay").style.display="none",document.getElementById("play").style.display="block",selectedb=selected="",editstack.length=0,a?document.getElementById("overwrite").checked?(sokoDeleteEmptyLines(),level=level.substr(0,w*h-1),document.getElementById("norm").checked&&sokoNormalize(),
+    levelset[current]=level,sokoLoadLevel2()):(level=level.replace(/_/g,"-"),sokoDeleteEmptyLines(),document.getElementById("norm").checked&&sokoNormalize(),level=level.substring(0,level.length-1),sokoPrintLevelButton(),sokoLoadXSB()):sokoLoadLevel2(),document.getElementById("ee").innerHTML="";else{(0!=reflection||0!=rotation)&&sokoOrientationChange(0);ruler&&sokoSetRuler();level=level.replace(/_/g,"-");for(var a="",b=0;b<w;b++)a+="-";level=a+"|"+level+"|"+a;level=level.replace(/\|/g,"-|-");w+=2;h+=2;
+    canvas.height=h*size;canvas.width=(w-1)*size;sbox=hint=vhint=whint=0;sokoDraw(0);document.getElementById("etool").style.display="block";document.getElementById("nonplay").style.display="block";document.getElementById("play").style.display="none";document.getElementById("rmode").innerHTML="E"}is_edit=1-is_edit}}
+function sokoSelectEnclosedWall(){if(8==tool){sokoEditPush();selected="";selectedw=sel2x-selx+1;selectedh=sel2y-sely+1;for(var a=0;a<selectedh;a++)for(var b=0;b<selectedw;b++)if(0==a||0==b||a==selectedh-1||b==selectedw-1)level=setCharAt(level,(sely+a)*w+(selx+b),"#");sokoDraw(0);sokoCountBox()}}
+function sokoSelectFill(a){if(8==tool){sokoEditPush();selected="";selectedw=sel2x-selx+1;selectedh=sel2y-sely+1;for(var b=0;b<selectedh;b++)for(var c=0;c<selectedw;c++)1==a?level=setCharAt(level,(sely+b)*w+(selx+c),"-"):2==a&&(level=setCharAt(level,(sely+b)*w+(selx+c),"#"));sokoDraw(0);sokoCountBox()}}
+function sokoSelectCopy(a){if(8==tool){selected="";a&&sokoEditPush();for(var b=sely;b<=sel2y;b++)for(var c=selx;c<=sel2x;c++)selected+=level[b*w+c],a&&(level=setCharAt(level,b*w+c,"-"));selected=selected.replace(/@/g,"-");selectedb=selected=selected.replace(/\+/g,".");selectedw=sel2x-selx+1;selectedh=sel2y-sely+1;document.info.lurd.value="";for(b=0;b<selectedh;b++){for(c=0;c<selectedw;c++)document.info.lurd.value+=selected[b*selectedw+c];document.info.lurd.value+="\n"}pastex=selx;pastey=sely}}
+function sokoSelectPaste(a){if(!(0==selectedw||0==selectedh))if(tool=8,0==selected.length)0<selectedb.length&&(pastey=pastex=0,selected=selectedb,sokoDraw(0),sokoDrawSelected());else{sokoEditPush();for(var b=0;b<selectedh;b++)for(var c=0;c<selectedw;c++)pastey+b<h&&pastex+c<w-1&&0<=pastey+b&&0<=pastex+c&&!(1==a&&"-"==selected[b*selectedw+c])&&(level=setCharAt(level,(pastey+b)*w+(pastex+c),selected[b*selectedw+c]));selected="";sokoDraw(0);sokoCountBox()}}
+function sokoSetTool(a){tool=a;document.info.lurd.value="Selected Tool: "+"man,wall,box,target,eraser,add column,add row,select,delete column,delete row".split(",")[a-1];selected="";sokoDraw(0)}function sokoClear(){sokoEditPush();for(var a=0;a<level.length;a++)"|"!=level[a]&&(level=setCharAt(level,a,"-"));sokoDraw(0);sokoCountBox()}
+function sokoClearBox(){sokoEditPush();for(var a=0;a<level.length;a++)switch(level[a]){case "$":level=setCharAt(level,a,"-");break;case "*":level=setCharAt(level,a,".")}sokoDraw(0);sokoCountBox()}function sokoClearTarget(){sokoEditPush();for(var a=0;a<level.length;a++)switch(level[a]){case ".":level=setCharAt(level,a,"-");break;case "*":level=setCharAt(level,a,"$");break;case "+":level=setCharAt(level,a,"@")}sokoDraw(0);sokoCountBox()}
+function sokoNormalizeButton(){!is_edit&&!ctrl&&sokoNormalize()}
+function sokoNormalize(){for(var a,b,c=0,d=0;d<h;d++)for(var e=0;e<w-1;e++){if(0==e||e==w-2||0==d||d==h-1)level=setCharAt(level,d*w+e,"#");switch(level[d*w+e]){case "@":case "+":c++;a=e;b=d;break;case "_":level=setCharAt(level,d*w+e,"-")}}switch(c){case 0:document.info.lurd.value="error: no player.";sokoDraw(0);return;case 1:break;default:document.info.lurd.value="error: too many players.";sokoDraw(0);return}for(var f=[],c=[],e=0;e<level.length+1;e++)f[e]=0;d=tail=0;c[0]=b*w+a;f[b*w+a]=1;d4[2]=w;
+    for(d4[3]=-1*w;d<=tail;){a=c[d];for(e=0;4>e;e++)"#"!=level[a+d4[e]]&&0==f[a+d4[e]]&&(f[a+d4[e]]=1,tail++,c[tail]=a+d4[e]);d++}for(d=0;d<h;d++)for(e=0;e<w-1;e++);d4[4]=w+1;d4[5]=-1*w+1;d4[6]=w-1;d4[7]=-1*w-1;for(d=0;d<h;d++)for(e=0;e<w-1;e++)switch(f[d*w+e]){case 0:for(a=c=0;8>a;a++)0<=d*w+e+d4[a]&&d*w+e+d4[a]<w*h-1&&1==f[d*w+e+d4[a]]&&c++;level=0==c?setCharAt(level,d*w+e,"_"):setCharAt(level,d*w+e,"#")}sokoDraw(0);sokoCountBox()}
+function sokoLoadFile(){function a(){document.info.lurd.value=c.result}var b,c;"function"!==typeof window.FileReader?document.info.lurd.value="The file API isn't supported on this browser yet.":(b=document.getElementById("fileinput"))?b.files?b.files[0]?(b=b.files[0],c=new FileReader,c.onload=a,c.readAsText(b)):document.info.lurd.value="Please select a file before clicking 'Load'":document.info.lurd.value="This browser doesn't seem to support the `files` property of file inputs.":document.info.lurd.value=
+    "Um, couldn't find the fileinput element."}var startColumn=-1,endColumn=-1;
+function validLevelData(a){for(var b=0,c=0,d=-1,e=-1,b=0;b<a.length;b++)if(!(" "==a.charAt(b)||"\n"==a.charAt(b)||"\r"==a.charAt(b)))if("*"==a.charAt(b)||"."==a.charAt(b)||"$"==a.charAt(b)||"@"==a.charAt(b)||"+"==a.charAt(b)||"#"==a.charAt(b)||"-"==a.charAt(b)||"_"==a.charAt(b))e=b,-1==d&&(d=b),c=1;else return 0;return c?(-1==startColumn?startColumn=d:d<startColumn&&(startColumn=d),-1==endColumn?endColumn=e:e>endColumn&&(endColumn=e),1):0}
+function adjustLevel(a){for(var b="",c="",d=0,e=0,f=0,d=0;d<a.length;d++)if(c=" "==a.charAt(d)||"_"==a.charAt(d)||"\r"==a.charAt(d)?c+"-":c+a.charAt(d),"\n"==a.charAt(d)){if(c.length-2>=endColumn)b+=c.substring(startColumn,endColumn+1);else{b+=c.substring(startColumn,c.length-1);f=endColumn-c.length+2;for(e=0;e<f;e++)b+="-"}b+="\n";c=""}return b.substring(0,b.length-1)}
+function processLevel(a){var b="",c=0,d=0;a=adjustLevel(a);for(c=0;c<a.length;c++){if("@"==a.charAt(c)||"+"==a.charAt(c))d=1;switch(a.charAt(c)){case " ":case "_":b+="-";break;case "\n":b+="|";break;case "-":case "#":case "@":case "+":case "$":case "*":case ".":b+=a.charAt(c)}}d?(0==textarea&&(textarea=1,document.getElementById("taset").disabled=!1),talevelset[tatotal]=b,tatitle[tatotal]="",taauthor2[tatotal]="",tatotal++,current=tatotal-1):b="";return"\n\n"+b}
+function validInfoData(a){return"T"==a[0]||"t"==a[0]||"a"==a[0]||"A"==a[0]?1:0}function processInfo(a){"TITLE"==a.substring(0,5).toUpperCase()?tatitle[current]=a.substring(6,a.length-1):"AUTHOR"==a.substring(0,6).toUpperCase()&&(taauthor2[current]=a.substring(7,a.length-1))}function getLine(a,b){for(var c=0,c=c=0;c<a.length&&a.charAt(c)!=b;c++);return{line:a.substring(0,c+1),theRest:a.substring(c+1,a.length)}}
+function sokoLoadXSB(){var a=document.info.lurd.value+"\nwho cares\n",b="\ntest:\n\n",b="",c=0,d=0,e=0,e=0;endColumn=startColumn=-1;for(var f=getLine(a,"\n");0<a.length;)if(validLevelData(f.line))c=d=1,b+=f.line,a=f.theRest,f=getLine(a,"\n");else if(d){for(b=processLevel(b);0==validLevelData(f.line)&&0<a.length;)validInfoData(f.line)&&processInfo(f.line),a=f.theRest,f=getLine(a,"\n");if(200>e&&document.getElementById("2slot").checked){for(;!(null===localStorage.getItem("level"+e)||0==localStorage.getItem("level"+
+    e).length);)e++;200>e&&(localStorage.setItem("level"+e,b),localStorage.setItem("label"+e,tatitle[current]+"\nAuthor:"+taauthor2[current]),localStorage.setItem("solution"+e,""),e++)}d=0;b="";endColumn=startColumn=-1}else a=f.theRest,f=getLine(a,"\n");document.getElementById("2slot").checked=!1;if(1==c){document.menu.set.value="textarea";for(e=document.getElementById("number").options.length-1;0<=e;e--)document.getElementById("number").remove(e);for(e=1;e<=tatotal;e++)addOption(document.getElementById("number"),
+    e+" "+tatitle[e-1],e);document.menu.number.value=tatotal;levelset=talevelset;title=tatitle;author=taauthor2;author_array=taauthor_array=1;total=tatotal;sokoLoadLevel2()}}function clearTextArea(){document.info.lurd.value=""}
+function loadScript(a,b){var c=document.getElementsByTagName("head")[0],d=document.createElement("script"),e=!1;d.src=a;d.onload=d.onreadystatechange=function(){if(!e&&(!this.readyState||"loaded"==this.readyState||"complete"==this.readyState))e=!0,b(),d.onload=d.onreadystatechange=null,c.removeChild(d)};c.appendChild(d)}function addOption(a,b,c){var d=document.createElement("OPTION");d.text=b;d.value=c;a.options.add(d)}
+function setCharAt(a,b,c){return b>a.length-1?a:a.substr(0,b)+c+a.substr(b+1)}
+function sokoLoadLevel2(){if(1==reversed)document.getElementById("rmode").innerHTML="P",document.getElementById("nonplay").style.display="none",document.getElementById("play").style.display="block",reversed=0;level0=levelset[current];h=w=1;for(var a=0;a<level0.length;a++)switch(level0[a]){case " ":w++;break;case "-":case "_":case "#":case "@":case "+":case ".":case "$":case "*":1==h&&w++;break;case "|":h++}d4[2]=w;d4[3]=-1*w;vhint=whint=hint=0;sokoRestart();0==rotation%2?(canvas.width=(w-1+ruler)*
+    size,canvas.height=(h+ruler)*size):(canvas.height=(w-1+ruler)*size,canvas.width=(h+ruler)*size);sokoDraw(0);sokoDrawRuler();document.getElementById("mp").innerHTML=m+"/"+p;if(0==author_array)document.getElementById("ta").innerHTML="["+title[current]+" - "+author+"]";else if(1==author_array)document.getElementById("ta").innerHTML="["+title[current]+" - "+author[current]+"]"}
+function sokoLevelsetChange(a){if("textarea"==document.getElementById("set").value){levelset=talevelset;title=tatitle;author=taauthor;author_array=taauthor_array;total=tatotal;current=0;taauthor_array&&(author=taauthor2);for(var b=document.getElementById("number").options.length-1;0<=b;b--)document.getElementById("number").remove(b);for(b=1;b<=total;b++)addOption(document.getElementById("number"),b+" "+title[b-1],b);sokoLoadLevel2()}else loadScript("http://www.sokoban.cn/sokoplayer/"+document.getElementById("set").value+".js",function(){sokoLoadLevelset();
+    1==a?document.getElementById("number").value=current+1:current=document.getElementById("number").value-1;for(var b=document.getElementById("number").options.length-1;0<=b;b--)document.getElementById("number").remove(b);for(b=1;b<=total;b++)addOption(document.getElementById("number"),b+" "+title[b-1],b);sokoLoadLevel2()})}function sokoLevelNumberChange(){current=document.getElementById("number").value-1;sokoLoadLevel2()}
+function sokoSkinChange(){skin.src=document.getElementById("skin").value+".png"}
+function sokoBoxTo(a){for(var b=setCharAt(level,sbox,"$"==level[sbox]?"-":"."),b=setCharAt(b,py*w+px,"@"==b[py*w+px]?"-":"."),c=j=0;zq[c]%(w*h)!=a;)c++;for(a=[];2<=c&&!(2==c);){switch(zq[c]%(w*h)-zq[zd[zq[c]]]%(w*h)){case -1:a[j]="L";break;case 1:a[j]="R";break;case -1*w:a[j]="U";break;case w:a[j]="D"}j++;a[j]=2!=zd[zq[c]]?sokoPlayerTo3(b,zq[zd[zq[c]]]%(w*h),zq[zd[zq[c]]]%(w*h)+d4[Math.floor(zq[zd[zq[c]]]/(w*h))],zq[zd[zq[c]]]%(w*h)+d4[Math.floor(zq[c]/(w*h))]):sokoPlayerTo3(b,zq[zd[zq[c]]]%(w*h),
+    py*w+px,zq[zd[zq[c]]]%(w*h)+d4[Math.floor(zq[c]/(w*h))]);j++;c=zd[zq[c]]}solution=solution.substr(0,m);for(c=j-1;0<=c;c--)solution+=a[c]}
+function sokoBoxHint(){var a=setCharAt(level,sbox,"$"==level[sbox]?"-":"."),a=setCharAt(a,py*w+px,"@"==a[py*w+px]?"-":".");zhead=ztail=2;var b;zq[2]=0;b=[];var c,d;document.getElementById("thru").checked?d=function(a,b,c,d){return sokoPlayerTo2(a,b,c,d)}:(sokoFindBlocks(),d=function(a,b,c,d){return sokoPlayerTo2b(a,b,c,d)});for(var e=0;e<w*h;e++)gothru[e]=0;for(e=0;e<4*w*h;e++)ztag[e]=0,zd[e]=0;for(e=0;4>e;e++)b[e]=sokoPlayerTo2(a,sbox,py*w+px,sbox+d4[e]),1<=b[e]&&(ztag[w*h*e+sbox]=1,0==zq[2]?(zq[2]=
+    w*h*e+sbox,c=e):b[e]<b[c]&&(c=e,zq[2]=w*h*e+sbox));if(0==zq[2]){for(e=0;e<w*h;e++)bhint[e]=0;return 0}for(;zhead<=ztail;){b=zq[zhead]%(w*h);for(e=0;4>e;e++)if(("-"==a[b-d4[e]]||"."==a[b-d4[e]])&&0==ztag[e*w*h+(b-d4[e])]&&ztag[zq[zhead]]==ztag[e*w*h+b]){ztail++;zq[ztail]=e*w*h+(b-d4[e]);for(c=0;4>c;c++)0==ztag[c*w*h+(b-d4[e])]&&1<=d(a,b-d4[e],b,b-d4[e]+d4[c])&&(ztag[c*w*h+(b-d4[e])]=zhead);zd[e*w*h+(b-d4[e])]=zhead}zhead++}for(e=0;e<w*h;e++)for(c=bhint[e]=0;4>c;c++)if(0!=ztag[c*w*h+e]){bhint[e]=1;
+    break}bhint[sbox]=0;hint=1}
+function sokoPlayerTo3(a,b,c,d){var e=[],f=[],g=[],o=tail=0,l=0,k=d,q=1,s="",t="";d8[0]=-1*w;e8[0]=-1;d8[1]=-1*w;e8[1]=1;d8[2]=1;e8[2]=-1*w;d8[3]=1;e8[3]=w;d8[4]=w;e8[4]=1;d8[5]=w;e8[5]=-1;d8[6]=-1;e8[6]=w;d8[7]=-1;e8[7]=-1*w;if(c==d)return"";for(var n=0;n<w*h;n++)e[n]=0,g[n]=0;f[0]=c;for(e[c]=1;o<=tail;){for(;o<=tail;){for(n=0;4>n;n++)if(("-"==a[f[o]+d4[n]]||"."==a[f[o]+d4[n]])&&f[o]+d4[n]!=b&&0==e[f[o]+d4[n]])if(d==f[o]+d4[n]&&(l=1),tail++,f[tail]=f[o]+d4[n],e[f[o]+d4[n]]=q,g[f[o]+d4[n]]=-1*d4[n],
+1==l)break;o++;q++;if(1==l)break}if(1==l)break;if(document.getElementById("thru").checked&&0==reversed)for(n=2;n<=w-4;n++){for(q=2;q<=h-3;q++){if(("-"==a[q*w+n]||"."==a[q*w+n])&&0==e[q*w+n])for(var r=0;8>r;r++)if(q*w+n!=b&&q*w+n+d8[r]!=b&&q*w+n+e8[r]!=b&&q*w+n+e8[r]+d8[r]!=b&&q*w+n+e8[r]-d8[r]!=b&&("$"==a[q*w+n-d8[r]]||"*"==a[q*w+n-d8[r]])&&0!=e[q*w+n-2*d8[r]]&&("-"==a[q*w+n+d8[r]]||"."==a[q*w+n+d8[r]])&&("-"==a[q*w+n+e8[r]]||"."==a[q*w+n+e8[r]])&&("-"==a[q*w+n+e8[r]+d8[r]]||"."==a[q*w+n+e8[r]+d8[r]])&&
+    ("-"==a[q*w+n+e8[r]-d8[r]]||"."==a[q*w+n+e8[r]-d8[r]])){d==q*w+n&&(l=1);e[q*w+n]=(w-3)*(h-2);tail++;f[tail]=q*w+n;g[q*w+n]=w+1+r;break}if(1==l)break}if(1==l)break}q=(w-3)*(h-2);if(1==l)break}if(1==l){for(;k!=c;)s=1==g[k]?s+"l":-1==g[k]?s+"r":g[k]==w?s+"u":g[k]==-1*w?s+"d":s+lurd8[g[k]-w-1],k=g[k]<w+1?k+g[k]:k+-2*d8[g[k]-w-1];for(n=s.length-1;0<=n;n--)t+=s[n];return t}return""}
+function sokoPlayerTo2(a,b,c,d){var e=[],f=[],g=tail=0,o=1;d8[0]=-1*w;e8[0]=-1;d8[1]=-1*w;e8[1]=1;d8[2]=1;e8[2]=-1*w;d8[3]=1;e8[3]=w;d8[4]=w;e8[4]=1;d8[5]=w;e8[5]=-1;d8[6]=-1;e8[6]=w;d8[7]=-1;e8[7]=-1*w;var l=d,l=1;if(c==d)return 1;for(var k=0;k<w*h;k++)e[k]=0;f[0]=c;for(e[c]=1;g<=tail;){for(;g<=tail;){for(k=0;4>k;k++)if(("-"==a[f[g]+d4[k]]||"."==a[f[g]+d4[k]])&&f[g]+d4[k]!=b&&0==e[f[g]+d4[k]]){if(d==f[g]+d4[k])return o;tail++;f[tail]=f[g]+d4[k];e[f[g]+d4[k]]=l}g++;l++}o++;if(document.getElementById("thru").checked&&
+    0==reversed)for(k=2;k<=w-4;k++)for(c=2;c<=h-3;c++)if(("-"==a[c*w+k]||"."==a[c*w+k])&&0==e[c*w+k])for(l=0;8>l;l++)if(c*w+k!=b&&c*w+k+d8[l]!=b&&c*w+k+e8[l]!=b&&c*w+k+e8[l]+d8[l]!=b&&c*w+k+e8[l]-d8[l]!=b&&("$"==a[c*w+k-d8[l]]||"*"==a[c*w+k-d8[l]])&&0!=e[c*w+k-2*d8[l]]&&("-"==a[c*w+k+d8[l]]||"."==a[c*w+k+d8[l]])&&("-"==a[c*w+k+e8[l]]||"."==a[c*w+k+e8[l]])&&("-"==a[c*w+k+e8[l]+d8[l]]||"."==a[c*w+k+e8[l]+d8[l]])&&("-"==a[c*w+k+e8[l]-d8[l]]||"."==a[c*w+k+e8[l]-d8[l]])){gothru[c*w+k-d8[l]]=1;if(d==c*w+k)return o;
+    e[c*w+k]=(w-3)*(h-2);tail++;f[tail]=c*w+k;break}l=(w-3)*(h-2)}return 0}
+function sokoPlayerTo(a){var b=[],c=[],d=[],e=tail=0;d8[0]=-1*w;e8[0]=-1;d8[1]=-1*w;e8[1]=1;d8[2]=1;e8[2]=-1*w;d8[3]=1;e8[3]=w;d8[4]=w;e8[4]=1;d8[5]=w;e8[5]=-1;d8[6]=-1;e8[6]=w;d8[7]=-1;e8[7]=-1*w;for(var f=0,g=a,o="",l=1,k=0;k<w*h;k++)b[k]=0,d[k]=0;c[0]=py*w+px;for(b[py*w+px]=1;e<=tail;){for(;e<=tail;){for(k=0;4>k;k++)if(("-"==level[c[e]+d4[k]]||"."==level[c[e]+d4[k]])&&0==b[c[e]+d4[k]])if(a==c[e]+d4[k]&&(f=1),tail++,c[tail]=c[e]+d4[k],b[c[e]+d4[k]]=l,d[c[e]+d4[k]]=-1*d4[k],1==f)break;e++;l++;if(1==
+    f)break}if(1==f)break;if(document.getElementById("thru").checked&&0==reversed)for(k=2;k<=w-4;k++){for(l=2;l<=h-3;l++){if(("-"==level[l*w+k]||"."==level[l*w+k])&&0==b[l*w+k])for(var q=0;8>q;q++)if(("$"==level[l*w+k-d8[q]]||"*"==level[l*w+k-d8[q]])&&0!=b[l*w+k-2*d8[q]]&&("-"==level[l*w+k+d8[q]]||"."==level[l*w+k+d8[q]])&&("-"==level[l*w+k+e8[q]]||"."==level[l*w+k+e8[q]])&&("-"==level[l*w+k+e8[q]+d8[q]]||"."==level[l*w+k+e8[q]+d8[q]])&&("-"==level[l*w+k+e8[q]-d8[q]]||"."==level[l*w+k+e8[q]-d8[q]])){a==
+l*w+k&&(f=1);b[l*w+k]=(w-3)*(h-2);tail++;c[tail]=l*w+k;d[l*w+k]=w+1+q;break}if(1==f)break}if(1==f)break}l=(w-3)*(h-2);if(1==f)break}if(1==f){for(;g!=py*w+px;)o=1==d[g]?o+"l":-1==d[g]?o+"r":d[g]==w?o+"u":d[g]==-1*w?o+"d":o+lurd8[d[g]-w-1],g=d[g]<w+1?g+d[g]:g+-2*d8[d[g]-w-1];solution=solution.substr(0,m);for(k=o.length-1;0<=k;k--)solution+=o[k];return 1}return 0}
+function sokoBoxReachable(a){var b=[],c=[],d=tail=0;d8[0]=-1*w;e8[0]=-1;d8[1]=-1*w;e8[1]=1;d8[2]=1;e8[2]=-1*w;d8[3]=1;e8[3]=w;d8[4]=w;e8[4]=1;d8[5]=w;e8[5]=-1;d8[6]=-1;e8[6]=w;d8[7]=-1;e8[7]=-1*w;for(var e=1,f=0;f<w*h;f++)b[f]=0;c[0]=py*w+px;for(b[py*w+px]=1;d<=tail;){for(;d<=tail;){for(f=0;4>f;f++)if(("-"==level[c[d]+d4[f]]||"."==level[c[d]+d4[f]])&&0==b[c[d]+d4[f]])tail++,c[tail]=c[d]+d4[f],b[c[d]+d4[f]]=e;d++;e++}if(document.getElementById("thru").checked)for(f=2;f<=w-4;f++)for(e=2;e<=h-3;e++)if(("-"==
+    level[e*w+f]||"."==level[e*w+f])&&0==b[e*w+f])for(var g=0;8>g;g++)if(("$"==level[e*w+f-d8[g]]||"*"==level[e*w+f-d8[g]])&&0!=b[e*w+f-2*d8[g]]&&("-"==level[e*w+f+d8[g]]||"."==level[e*w+f+d8[g]])&&("-"==level[e*w+f+e8[g]]||"."==level[e*w+f+e8[g]])&&("-"==level[e*w+f+e8[g]+d8[g]]||"."==level[e*w+f+e8[g]+d8[g]])&&("-"==level[e*w+f+e8[g]-d8[g]]||"."==level[e*w+f+e8[g]-d8[g]])){b[e*w+f]=(w-3)*(h-2);tail++;c[tail]=e*w+f;break}e=(w-3)*(h-2)}for(f=0;f<w*h;f++)bhint[f]=0,gothru[f]=0;sbox=0;if(1==a){for(f=0;f<
+w*h;f++)0!=b[f]&&(bhint[f]=1),b[f]>=(w-3)*(h-2)&&(gothru[f]=1);vhint=1}else{for(f=0;f<w*h;f++)if(0!=b[f])for(e=0;4>e;e++)if(("$"==level[f+d4[e]]||"*"==level[f+d4[e]])&&("-"==level[f+2*d4[e]]||"."==level[f+2*d4[e]]||"@"==level[f+2*d4[e]]||"+"==level[f+2*d4[e]]))bhint[f+d4[e]]=1;whint=1}}
+function sokoLoadSolution(){var a=document.info.lurd.value,b=0,c=0,d=0,e=0,f=0;jumpy=0;if(is_edit)document.info.lurd.value="can't load solution in edit/reverse mode";else{if("["==a[0]){for(e=1;","!=a[e];)f*=10,f+=parseInt(a[e]),e++;for(e++;"]"!=a[e];)jumpy*=10,jumpy+=parseInt(a[e]),e++;e+=1}for(;e<a.length&&100>e;e++){switch(a[e]){case "l":case "u":case "r":case "d":case "L":case "U":case "R":case "D":d++;break;default:d++,c++}if(0.2<1*c/d)return}solution=solution.substr(0,m);for(e=hint=sbox=0;e<
+a.length;e++)switch(a[e]){case "l":case "u":case "r":case "d":case "L":case "U":case "R":case "D":b=1,solution+=a[e]}if(reversed&&b){document.info.lurd.value="Solution loaded.";sokoDraw(0);if(0!=jumpy&&0!=f){if(0<p){document.info.lurd.value+="\nSolution does not match.";solution=solution.substr(0,m);return}sokoReversedSetPusher(jumpy*w+f);jpx=f;jpy=jumpy;sokoDraw(0)}else if(0==p){document.info.lurd.value+="\nSolution does not match.";solution=solution.substr(0,m);return}tid=setInterval(sokoReversedAuto,
+    20)}else if(1==b)document.info.lurd.value="Solution loaded.",sokoDraw(0),document.getElementById("mp").innerHTML=m+"/"+p,tid=setInterval(sokoAuto,20)}}
+function sokoDrawRuler(){if(0!=ruler)if(0==rotation%2){for(var a=0;a<h;a++)context.fillText(a+1,0,size*(a+1.7));for(a=0;a<w-1;a++){var b=Math.floor(a/26),c=a%26;0!=b?(context.fillText(String.fromCharCode(64+b),size*(a+1.5)-6,0.7*size),context.fillText(String.fromCharCode(65+c),size*(a+1.5),0.7*size)):context.fillText(String.fromCharCode(65+c),size*(a+1.3),0.7*size)}}else{for(a=0;a<w-1;a++)context.fillText(a+1,0,size*(a+1.7));for(a=0;a<h;a++)b=Math.floor(a/26),c=a%26,0!=b?(context.fillText(String.fromCharCode(64+
+    b),size*(a+1.5)-6,0.7*size),context.fillText(String.fromCharCode(65+c),size*(a+1.5),0.7*size)):context.fillText(String.fromCharCode(65+c),size*(a+1.3),0.7*size)}}
+function sokoDraw(a){if(1==a){var b,c,d;is_edit?(a=epx-2,b=epx+2,c=epy-2,d=epy+2):(a=px-2,b=px+2,c=py-2,d=py+2);0>a&&(a=0);0>c&&(c=0);b>w-2&&(b=w-2);d>h-1&&(d=h-1)}else c=a=0,b=w-2,d=h-1;for(var e=a;e<=b;e++)for(var f=c;f<=d;f++){var g,o;switch(4*reflection+rotation){case 0:g=e;o=f;break;case 4:o=f;g=w-2-e;break;case 1:o=e;g=h-1-f;break;case 2:g=w-2-e;o=h-1-f;break;case 3:o=w-2-e;g=f;break;case 5:o=w-2-e;g=h-1-f;break;case 6:g=e;o=h-1-f;break;case 7:o=e,g=f}switch(level[f*w+e]){case "#":context.drawImage(skin,
+    0*size,2*size,size,size,(g+ruler)*size,(o+ruler)*size,size,size);break;case "@":context.drawImage(skin,1*size,0*size,size,size,(g+ruler)*size,(o+ruler)*size,size,size);1==hint&&1==bhint[f*w+e]&&context.drawImage(skin,2*size,3*size,center,center,(g+ruler)*size+offset,(o+ruler)*size+offset,center,center);break;case "+":context.drawImage(skin,1*size,1*size,size,size,(g+ruler)*size,(o+ruler)*size,size,size);1==hint&&1==bhint[f*w+e]&&context.drawImage(skin,2*size,3*size,center,center,(g+ruler)*size+offset,
+    (o+ruler)*size+offset,center,center);break;case "-":case " ":context.drawImage(skin,0*size,0*size,size,size,(g+ruler)*size,(o+ruler)*size,size,size);(1==hint||1==vhint)&&1==bhint[f*w+e]?gothru[f*w+e]&&!reversed?context.drawImage(skin,3*size,3*size,center,center,(g+ruler)*size+offset,(o+ruler)*size+offset,center,center):context.drawImage(skin,2*size,3*size,center,center,(g+ruler)*size+offset,(o+ruler)*size+offset,center,center):0==hint&&0==vhint&&reversed&&e==rpx&&f==rpy&&context.drawImage(skin,2*
+    size,3*size,center,center,(g+ruler)*size+offset,(o+ruler)*size+offset,center,center);break;case "_":context.drawImage(skin,3*size,2*size,size,size,(g+ruler)*size,(o+ruler)*size,size,size);break;case ".":context.drawImage(skin,0*size,1*size,size,size,(g+ruler)*size,(o+ruler)*size,size,size);if((1==hint||1==vhint)&&1==bhint[f*w+e])gothru[f*w+e]&&!reversed?context.drawImage(skin,3*size,3*size,center,center,(g+ruler)*size+offset,(o+ruler)*size+offset,center,center):context.drawImage(skin,2*size,3*size,
+    center,center,(g+ruler)*size+offset,(o+ruler)*size+offset,center,center);break;case "$":f*w+e==sbox||1==whint&&1==bhint[f*w+e]?context.drawImage(skin,3*size,0*size,size,size,(g+ruler)*size,(o+ruler)*size,size,size):(context.drawImage(skin,2*size,0*size,size,size,(g+ruler)*size,(o+ruler)*size,size,size),1==hint&&gothru[f*w+e]&&context.drawImage(skin,2*size,3*size,center,center,(g+ruler)*size+offset,(o+ruler)*size+offset,center,center));break;case "*":f*w+e==sbox||1==whint&&1==bhint[f*w+e]?context.drawImage(skin,
+    3*size,1*size,size,size,(g+ruler)*size,(o+ruler)*size,size,size):(context.drawImage(skin,2*size,1*size,size,size,(g+ruler)*size,(o+ruler)*size,size,size),1==hint&&gothru[f*w+e]&&context.drawImage(skin,2*size,3*size,center,center,(g+ruler)*size+offset,(o+ruler)*size+offset,center,center))}}if(0!=grid){if(0==rotation%2){for(g=c+1;g<=d+ruler;g++)context.moveTo(0,g*size+0.5),context.lineTo((w-1+ruler)*size,g*size+0.5);for(g=a+1;g<=b+ruler;g++)context.moveTo(g*size+0.5,0),context.lineTo(g*size+0.5,(h+
+    ruler)*size)}else{for(g=a+1;g<=b+ruler;g++)context.moveTo(0,g*size+0.5),context.lineTo((h+ruler)*size,g*size+0.5);for(g=c+1;g<=d+ruler;g++)context.moveTo(g*size+0.5,0),context.lineTo(g*size+0.5,(w-1+ruler)*size)}context.stroke()}}
+function sokoDrawSelected(){for(var a=0;a<selectedw;a++)for(var b=0;b<selectedh;b++)switch(selected[b*selectedw+a]){case "#":context.drawImage(skin,0*size,2*size,size,size,(a+pastex+ruler)*size,(b+pastey+ruler)*size,size,size);break;case "@":context.drawImage(skin,1*size,0*size,size,size,(a+pastex+ruler)*size,(b+pastey+ruler)*size,size,size);break;case "+":context.drawImage(skin,1*size,1*size,size,size,(a+pastex+ruler)*size,(b+pastey+ruler)*size,size,size);break;case "-":case " ":if(document.getElementById("merge").checked)break;
+    context.drawImage(skin,0*size,0*size,size,size,(a+pastex+ruler)*size,(b+pastey+ruler)*size,size,size);break;case "_":if(document.getElementById("merge").checked)break;context.drawImage(skin,3*size,2*size,size,size,(a+pastex+ruler)*size,(b+pastey+ruler)*size,size,size);break;case ".":context.drawImage(skin,0*size,1*size,size,size,(a+pastex+ruler)*size,(b+pastey+ruler)*size,size,size);break;case "$":context.drawImage(skin,2*size,0*size,size,size,(a+pastex+ruler)*size,(b+pastey+ruler)*size,size,size);
+    break;case "*":context.drawImage(skin,2*size,1*size,size,size,(a+pastex+ruler)*size,(b+pastey+ruler)*size,size,size)}context.strokeRect(pastex*size,pastey*size,size*selectedw,size*selectedh)}
+function sokoRedo(){var a,b;if(m==solution.length)return 0;switch(solution[m]){case "l":case "L":a=-1;b=0;break;case "r":case "R":a=1;b=0;break;case "u":case "U":a=0;b=-1;break;case "d":case "D":a=0,b=1}switch(level[(py+b)*w+px+a]){case "-":case ".":level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,".");level="-"==level[(py+b)*w+px+a]?setCharAt(level,(py+b)*w+px+a,"@"):setCharAt(level,(py+b)*w+px+a,"+");px+=a;py+=b;document.getElementById("case").checked&&(solution=setCharAt(solution,
+    m,solution[m].toLowerCase()));break;case "$":case "*":if("-"!=level[(py+2*b)*w+px+2*a]&&"."!=level[(py+2*b)*w+px+2*a])return document.getElementById("case").checked&&(solution=solution.substr(0,m)),2;level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,".");level="$"==level[(py+b)*w+px+a]?setCharAt(level,(py+b)*w+px+a,"@"):setCharAt(level,(py+b)*w+px+a,"+");level="-"==level[(py+2*b)*w+px+2*a]?setCharAt(level,(py+2*b)*w+px+2*a,"$"):setCharAt(level,(py+2*b)*w+px+2*a,"*");px+=
+    a;py+=b;p++;document.getElementById("case").checked&&(solution=setCharAt(solution,m,solution[m].toUpperCase()));break;default:return document.getElementById("case").checked&&(solution=solution.substr(0,m)),2}m++;return 1}
+function sokoMove(a){var b,c;switch(a){case "l":case "L":b=-1;c=0;break;case "r":case "R":b=1;c=0;break;case "u":case "U":b=0;c=-1;break;case "d":case "D":b=0,c=1}if("-"==level[(py+c)*w+px+b]||"."==level[(py+c)*w+px+b])level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,"."),level="-"==level[(py+c)*w+px+b]?setCharAt(level,(py+c)*w+px+b,"@"):setCharAt(level,(py+c)*w+px+b,"+"),px+=b,py+=c,solution=solution.substr(0,m)+a,m++;else if(("$"==level[(py+c)*w+px+b]||"*"==level[(py+
+    c)*w+px+b])&&("-"==level[(py+2*c)*w+px+2*b]||"."==level[(py+2*c)*w+px+2*b]))level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,"."),level="$"==level[(py+c)*w+px+b]?setCharAt(level,(py+c)*w+px+b,"@"):setCharAt(level,(py+c)*w+px+b,"+"),level="-"==level[(py+2*c)*w+px+2*b]?setCharAt(level,(py+2*c)*w+px+2*b,"$"):setCharAt(level,(py+2*c)*w+px+2*b,"*"),px+=b,py+=c,solution=solution.substr(0,m)+a.toUpperCase(),m++,p++}
+function sokoUndo(){var a,b;if(0==m)return 1;m--;switch(solution[m]){case "l":case "L":a=-1;b=0;break;case "r":case "R":a=1;b=0;break;case "u":case "U":a=0;b=-1;break;case "d":case "D":a=0,b=1}switch(solution[m]){case "l":case "u":case "r":case "d":level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,".");level="-"==level[(py-b)*w+px-a]?setCharAt(level,(py-b)*w+px-a,"@"):setCharAt(level,(py-b)*w+px-a,"+");px-=a;py-=b;break;case "L":case "U":case "R":case "D":level="@"==level[py*
+w+px]?setCharAt(level,py*w+px,"$"):setCharAt(level,py*w+px,"*"),level="$"==level[(py+b)*w+px+a]?setCharAt(level,(py+b)*w+px+a,"-"):setCharAt(level,(py+b)*w+px+a,"."),level="-"==level[(py-b)*w+px-a]?setCharAt(level,(py-b)*w+px-a,"@"):setCharAt(level,(py-b)*w+px-a,"+"),px-=a,py-=b,p--}}
+function sokoUndo2(){var a,b,c=0;if(0==m)return 2;m--;switch(solution[m]){case "l":case "L":a=-1;b=0;break;case "r":case "R":a=1;b=0;break;case "u":case "U":a=0;b=-1;break;case "d":case "D":a=0,b=1}switch(solution[m]){case "l":case "u":case "r":case "d":level="@"==level[py*w+px]?setCharAt(level,py*w+px,"-"):setCharAt(level,py*w+px,".");level="-"==level[(py-b)*w+px-a]?setCharAt(level,(py-b)*w+px-a,"@"):setCharAt(level,(py-b)*w+px-a,"+");px-=a;py-=b;break;case "L":case "U":case "R":case "D":if(0!=urbox&&
+    urbox!=(py+b)*w+(px+a))return m++,urbox=0,2;c=1;urbox=py*w+px;level="@"==level[py*w+px]?setCharAt(level,py*w+px,"$"):setCharAt(level,py*w+px,"*");level="$"==level[(py+b)*w+px+a]?setCharAt(level,(py+b)*w+px+a,"-"):setCharAt(level,(py+b)*w+px+a,".");level="-"==level[(py-b)*w+px-a]?setCharAt(level,(py-b)*w+px-a,"@"):setCharAt(level,(py-b)*w+px-a,"+");px-=a;py-=b;p--}return c}function sokoFindPusher(){for(var a=0;a<w-1;a++)for(var b=0;b<h;b++)switch(level[b*w+a]){case "@":case "+":px=a,py=b}}
+function sokoRestart(){level=level0;solved=0;solution="";sbox=vhint=whint=hint=p=m=0;sokoFindPusher()}function sokoRestartButton(){if(!is_edit&&!ctrl)reversed?(sokoPrintSolutionButton(),sokoReversedInit()):(sokoPrintSolutionButton(),sokoRestart(),sbox=hint=vhint=whint=0,sokoDraw(0),document.getElementById("mp").innerHTML=m+"/"+p)}
+function sokoForward(){if(!(m==solution.length||is_edit||tid||ctrl))sbox=hint=vhint=whint=0,sokoDraw(0),document.getElementById("mp").innerHTML=m+"/"+p,tid=0==reversed?setInterval(sokoAuto,20):setInterval(sokoReversedAuto,20)}function sokoBackward(){if(!(0==m||is_edit||tid||ctrl))sbox=hint=vhint=whint=0,sokoDraw(0),document.getElementById("mp").innerHTML=m+"/"+p,undop=m,tid=setInterval(sokoAutoUndo2,20)}
+function sokoUndoButton(){if(!(0==m||is_edit||ctrl))sbox=hint=vhint=whint=0,sokoDraw(0),document.getElementById("mp").innerHTML=m+"/"+p,undop=m,0==tid&&(tid=0==reversed?setInterval(sokoAutoUndo,20):setInterval(sokoReversedAutoUndo,20))}
+function sokoRedoButton(){if(!(m==solution.length||is_edit||ctrl)){sbox=hint=vhint=whint=0;sokoDraw(0);document.getElementById("mp").innerHTML=m+"/"+p;var a=0,b,c,d=px,e=py;urbox=0;for(var f=m;f<solution.length;f++){switch(solution[f]){case "l":case "L":b=-1;c=0;break;case "r":case "R":b=1;c=0;break;case "u":case "U":b=0;c=-1;break;case "d":case "D":b=0,c=1}switch(solution[f]){case "L":case "U":case "R":case "D":if(0!=urbox&&(0==reversed&&urbox!=(e+c)*w+(d+b)||1==reversed&&urbox!=(e-c)*w+(d-b))){urbox=
+    0;undop=a;0==tid&&(tid=0==reversed?setInterval(sokoAutoRedo,20):setInterval(sokoReversedAutoRedo,20));return}urbox=0==reversed?(e+2*c)*w+(d+2*b):e*w+d;a=f-m+1}d+=b;e+=c}urbox=0;undop=0!=a?a:solution.length-m+1;0==tid&&(tid=0==reversed?setInterval(sokoAutoRedo,20):setInterval(sokoReversedAutoRedo,20))}}
+function sokoPrintSolutionButton(){if(reversed&&solved){for(var a="",b=m,c=m-1;0<=c;c--)switch(solution[c]){case "l":a+="r";break;case "u":a+="d";break;case "r":a+="l";break;case "d":a+="u";break;case "L":a+="R";break;case "U":a+="D";break;case "R":a+="L";break;case "D":a+="U"}for(;"l"==a.charAt(b-1)||"u"==a.charAt(b-1)||"r"==a.charAt(b-1)||"d"==a.charAt(b-1);)b--;document.info.lurd.value=a.substr(0,b)}else document.info.lurd.value="",reversed&&(document.info.lurd.value+="["+jpx+","+jpy+"]"),document.info.lurd.value+=
+    solution.substr(0,m)}function sokoPrintLevelButton(){for(var a=level,b=0;b<h;b++)a=a.replace("|","\r\n");document.info.lurd.value=a;document.info.lurd.value+="\nTitle:"+title[current];document.info.lurd.value=author_array?document.info.lurd.value+("\nAuthor:"+author[current]):document.info.lurd.value+("\nAuthor:"+author)}
+function sokoPrintURLButton(){for(var a="http://sokoban.ws/sokoplayer/",a=ctrl?a+"index.php":a+"index2.php",a=a+("?w="+(w-1)+"&h="+h+"&lvl="),b=0;b<level.length;b++)switch(level[b]){case "-":case " ":a+="_";break;case "#":a+="H";break;case "@":a+="a";break;case "+":a+="x";break;default:a+=level[b]}document.info.lurd.value=a}
+function sokoIsSolved(){solved=1;for(var a=0;a<w*h-1;a++)if("."==level[a]||"$"==level[a]||"+"==level[a]){solved=0;return}reversed&&(px!=rpx||py!=rpy)?solved=0:(document.info.lurd.value="Solved!",sokoPlaySound(2))}function sokoNext(){if(current<total-1)current++,document.getElementById("number").value=current+1,sokoLoadLevel2();document.info.lurd.value=""}function sokoPrev(){if(0<current)current--,document.getElementById("number").value=current+1,sokoLoadLevel2();document.info.lurd.value=""}
+function sokoGoTo(){current=document.menu.ln.value-1;if(0<=current&&current<total)document.getElementById("number").value=current+1,sokoLoadLevel2();document.menu.ln.value="";document.info.lurd.value=""}
+function sokoAuto(){switch(sokoRedo()){case 1:sokoIsSolved();var a=0,b=1;if(document.getElementById("im").checked){for(;4999>a&&!(a++,b=sokoRedo(),2==b||0==b););sokoDraw(0);if(2==b||0==b)sokoIsSolved(),clearInterval(tid),tid=0}sokoDraw(1);document.getElementById("mp").innerHTML=m+"/"+p;break;case 2:document.info.lurd.value+="\nSolution does not match.";clearInterval(tid);tid=0;break;case 0:clearInterval(tid),tid=0}}function sokoStop(){0!=tid&&(clearInterval(tid),tid=0)}
+function sokoAutoRedo(){sokoRedo();undop--;sokoIsSolved();var a=0;if(document.getElementById("im").checked){for(;0<undop&&4999>a;)sokoRedo(),undop--,a++;sokoDraw(0)}sokoDraw(1);document.getElementById("mp").innerHTML=m+"/"+p;0==undop&&(sokoIsSolved(),clearInterval(tid),tid=0)}
+function sokoAutoUndo2(){reversed?sokoReversedUndo():sokoUndo();undop--;var a=0;if(document.getElementById("im").checked){for(;0<undop&&4999>a;)reversed?sokoReversedUndo():sokoUndo(),undop--,a++;sokoDraw(0)}sokoDraw(1);document.getElementById("mp").innerHTML=m+"/"+p;0==undop&&(clearInterval(tid),tid=0)}
+function sokoAutoUndo(){switch(sokoUndo2()){case 0:case 1:var a=0,b=1;if(document.getElementById("im").checked){for(;4999>a&&!(a++,b=sokoUndo2(),2==b););sokoDraw(0);2==b&&(clearInterval(tid),urbox=tid=0)}sokoDraw(1);document.getElementById("mp").innerHTML=m+"/"+p;break;case 2:sokoDraw(1),document.getElementById("mp").innerHTML=m+"/"+p,clearInterval(tid),urbox=tid=0,undop-=m}}
+function sokoOrientationChange(a){if(!is_edit){switch(a){case 1:rotation=(rotation+1)%4;break;case 2:rotation=3*rotation%4;reflection=(reflection+1)%2;break;case 0:reflection=rotation=0;break;case 3:rotation=(rotation+3)%4;break;case 4:rotation=(rotation+2*((rotation+1)%2))%4,reflection=(reflection+1)%2}0==rotation%2?(canvas.width=(w-1+ruler)*size,canvas.height=(h+ruler)*size):(canvas.height=(w-1+ruler)*size,canvas.width=(h+ruler)*size);sokoDraw(0);sokoDrawRuler();switch(4*reflection+rotation){case 0:document.getElementById("ori").innerHTML=
+    "<font color=green>^</font>";break;case 1:document.getElementById("ori").innerHTML="<font color=green>></font>";break;case 2:document.getElementById("ori").innerHTML="<font color=green>v</font>";break;case 3:document.getElementById("ori").innerHTML="<font color=green><</font>";break;case 4:document.getElementById("ori").innerHTML="<font color=red>^</font>";break;case 5:document.getElementById("ori").innerHTML="<font color=red><</font>";break;case 6:document.getElementById("ori").innerHTML="<font color=red>v</font>";
+    break;case 7:document.getElementById("ori").innerHTML="<font color=red>></font>"}}}function translateKey(a){switch(4*reflection+rotation){case 0:return a;case 1:return"l"==a?"d":"r"==a?"u":"u"==a?"l":"r";case 2:return"l"==a?"r":"r"==a?"l":"u"==a?"d":"u";case 3:return"l"==a?"u":"r"==a?"d":"u"==a?"r":"l";case 4:return"l"==a?"r":"r"==a?"l":a;case 5:return"l"==a?"d":"r"==a?"u":"u"==a?"r":"l";case 6:return"u"==a?"d":"d"==a?"u":a;case 7:return"l"==a?"u":"r"==a?"d":"u"==a?"l":"r"}}
+function translateMouseX(a,b){switch(4*reflection+rotation){case 0:return a-ruler;case 1:return b-ruler;case 2:return w-2-a+ruler;case 3:return w-2-b+ruler;case 4:return w-2-a+ruler;case 5:return w-2-b+ruler;case 6:return a-ruler;case 7:return b-ruler}}
+function translateMouseY(a,b){switch(4*reflection+rotation){case 0:return b-ruler;case 1:return h-1-a+ruler;case 2:return h-1-b+ruler;case 3:return a-ruler;case 4:return b-ruler;case 5:return h-1-a+ruler;case 6:return h-1-b+ruler;case 7:return a-ruler}}function sokoSetRuler(){if(!is_edit)ruler=1-ruler,0==rotation%2?(canvas.width=(w-1+ruler)*size,canvas.height=(h+ruler)*size):(canvas.height=(w-1+ruler)*size,canvas.width=(h+ruler)*size),sokoDraw(0),sokoDrawRuler()}
+function sokoSetGrid(){grid=1-grid;context.clearRect(0,0,canvas.width,canvas.height);sokoDraw(0);sokoDrawRuler()}
+function doKeyDown(a){var b=0;if(0==tid){var a=a?a:window.event,c=a.target?a.target:a.srcElement;if(!c||!("html"!=c.nodeName.toLowerCase()&&"body"!=c.nodeName.toLowerCase()&&"div"!=c.nodeName.toLowerCase())){switch(a.keyCode){case 17:0==ctrl&&(b=ctrl=1,tool=8);break;case 79:document.info.lurd.value=solution.substr(0,m);b=1;break;case 77:for(var c=level,d=0;d<h;d++)c=c.replace("|","\r\n");document.info.lurd.value=c;break;case 37:case 65:if(is_edit){pastex--;sokoDraw(0);sokoDrawSelected();b=1;break}if(1==
+    solved)return;reversed?ctrl?sokoReversedPull(translateKey("l")):sokoReversedMove(translateKey("l")):(sokoMove(translateKey("l")),sokoIsSolved());b=1;break;case 38:case 87:if(is_edit){pastey--;sokoDraw(0);sokoDrawSelected();b=1;break}if(1==solved)return;reversed?ctrl?sokoReversedPull(translateKey("u")):sokoReversedMove(translateKey("u")):(sokoMove(translateKey("u")),sokoIsSolved());b=1;break;case 39:case 68:if(is_edit){pastex++;sokoDraw(0);sokoDrawSelected();b=1;break}if(1==solved)return;reversed?
+    ctrl?sokoReversedPull(translateKey("r")):sokoReversedMove(translateKey("r")):(sokoMove(translateKey("r")),sokoIsSolved());b=1;break;case 40:case 83:if(is_edit){pastey++;sokoDraw(0);sokoDrawSelected();b=1;break}if(1==solved)return;reversed?ctrl?sokoReversedPull(translateKey("d")):sokoReversedMove(translateKey("d")):(sokoMove(translateKey("d")),sokoIsSolved());b=1;break;case 8:case 90:if(is_edit)return;reversed?sokoReversedUndo():sokoUndo();b=1;break;case 88:reversed?sokoReversedRedo():sokoRedo();b=
+    1;break;case 27:if(is_edit){selected="";sokoDraw(0);b=1;break}sokoRestartButton();b=1}if(1==b){window.event?(a.cancelBubble=!0,a.returnValue=!1,a.preventDefault()):(a.preventDefault(),a.returnValue=!1,a.stopPropagation());if(1==hint||1==whint||1==vhint)sbox=hint=vhint=whint=0,sokoDraw(0);1!=is_edit&&sokoDraw(1);document.getElementById("mp").innerHTML=m+"/"+p}}}}
+function doKeyUp(a){var b=0;if(0==tid){var a=a?a:window.event,c=a.target?a.target:a.srcElement;switch(a.keyCode){case 17:ctrl=0,b=1,sokoDraw(0),document.getElementById("ee").innerHTML=""}if((!c||!("html"!=c.nodeName.toLowerCase()&&"body"!=c.nodeName.toLowerCase()&&"div"!=c.nodeName.toLowerCase()))&&1==b){window.event?(a.cancelBubble=!0,a.returnValue=!1,a.preventDefault()):(a.preventDefault(),a.returnValue=!1,a.stopPropagation());if(1==hint||1==whint||1==vhint)sbox=hint=vhint=whint=0,sokoDraw(0);1!=
+is_edit&&sokoDraw(1);document.getElementById("mp").innerHTML=m+"/"+p}}}
+function doMouseUp(a){var b=a?a:window.event,c=Math.floor((a.pageX-canvas.offsetLeft)/size),d=Math.floor((a.pageY-canvas.offsetTop)/size),e="LEFT";b.which?(3==b.which&&(e="RIGHT"),2==b.which&&(e="MIDDLE")):b.button&&(2==b.button&&(e="RIGHT"),4==b.button&&(e="MIDDLE"));if("RIGHT"==e)is_edit&&(hold=0);else if(is_edit||ctrl){hold=0;switch(tool){case 8:sel2y=d,sel2x=c,sel2x<selx&&(sel2x+=selx,selx=sel2x-selx,sel2x-=selx),sel2y<sely&&(sel2y+=sely,sely=sel2y-sely,sel2y-=sely)}is_edit?sokoCountBox():sokoCountBox2()}else if(!(0!=
+    tid||1==solved)){b=translateMouseX(c,d);d=translateMouseY(c,d);c=b;if(reversed)switch(level[d*w+c]){case "-":case ".":if(0==p&&0==sbox)sokoReversedSetPusher(d*w+c),jpx=c,jpy=d,vhint=sbox=0,solution="",p=m=0,sokoDraw(0);else if(0==sbox&&1==sokoPlayerTo(d*w+c))vhint=sbox=0,sokoDraw(0),tid=setInterval(sokoAuto,20);else if(0!=sbox&&1==bhint[d*w+c])sokoBoxTo(d*w+c),hint=sbox=0,a.target.style.cursor="default",sokoDraw(0),tid=setInterval(sokoReversedAuto,20);break;case "@":case "+":if(0!=sbox&&1==bhint[d*
+w+c])sokoBoxTo(d*w+c),hint=sbox=0,a.target.style.cursor="default",sokoDraw(0),tid=setInterval(sokoReversedAuto,20);else{if(0==vhint)whint=0,sokoBoxReachable(1);else for(c=vhint=0;c<w*h;c++)bhint[c]=0;sokoDraw(0)}}else switch(level[d*w+c]){case "-":case ".":0==sbox&&1==sokoPlayerTo(d*w+c)?(vhint=sbox=0,sokoDraw(0),tid=setInterval(sokoAuto,20)):0!=sbox&&1==bhint[d*w+c]?(sokoBoxTo(d*w+c),hint=sbox=0,a.target.style.cursor="default",sokoDraw(0),tid=setInterval(sokoAuto,20)):sokoPlaySound(1);break;case "@":case "+":if(0!=
+    sbox&&1==bhint[d*w+c])sokoBoxTo(d*w+c),hint=sbox=0,a.target.style.cursor="default",sokoDraw(0),tid=setInterval(sokoAuto,20);else{if(0==vhint)whint=0,sokoBoxReachable(1);else for(c=vhint=0;c<w*h;c++)bhint[c]=0;sokoDraw(0)}break;case "#":if(0==whint)vhint=0,sokoBoxReachable(0);else for(c=whint=0;c<w*h;c++)bhint[c]=0;sokoDraw(0)}if(ruler&&(c=Math.floor((a.pageX-canvas.offsetLeft)/size),d=Math.floor((a.pageY-canvas.offsetTop)/size),!(0==c||0==d)))cursor=d*(w-1+ruler)+c,a=Math.floor((c-1)/26),b=(c-1)%
+    26,0!=a?document.getElementById("r").innerHTML=String.fromCharCode(64+a)+String.fromCharCode(65+b)+d:document.getElementById("r").innerHTML=String.fromCharCode(65+b)+d,context.strokeRect(c*size+0.5,d*size+0.5,size-1,size-1),context.strokeRect(c*size+1.5,d*size+1.5,size-3,size-3)}}
+function doMouseDown(a){var b=a?a:window.event,c=Math.floor((a.pageX-canvas.offsetLeft)/size),d=Math.floor((a.pageY-canvas.offsetTop)/size),e="LEFT";b.which?(3==b.which&&(e="RIGHT"),2==b.which&&(e="MIDDLE")):b.button&&(2==b.button&&(e="RIGHT"),4==b.button&&(e="MIDDLE"));if("RIGHT"==e)ctrl||(is_edit?(epx=c,epy=d,0<selected.length?(selected="",sokoDraw(0)):"-"!=level[d*w+c]&&(sokoEditPush(),level=setCharAt(level,d*w+c,"-"),sokoCountBox(),sokoDraw(0))):sokoUndoButton());else if(is_edit||ctrl){hold=1;
+    epx=c;epy=d;switch(tool){case 1:sokoEditPush();for(a=0;a<w*h-1;a++)if(a==d*w+c)level="@"==level[d*w+c]||"."==level[d*w+c]?setCharAt(level,d*w+c,"+"):setCharAt(level,d*w+c,"@");else switch(level[a]){case "@":level=setCharAt(level,a,"-");break;case "+":level=setCharAt(level,a,".")}sokoDraw(0);break;case 2:sokoEditPush();level=setCharAt(level,d*w+c,"#");sokoDraw(1);break;case 3:sokoEditPush();switch(level[d*w+c]){case ".":case "$":level=setCharAt(level,d*w+c,"*");break;default:level=setCharAt(level,
+        d*w+c,"$")}sokoDraw(1);break;case 4:sokoEditPush();switch(level[d*w+c]){case "@":level=setCharAt(level,d*w+c,"+");break;case "$":level=setCharAt(level,d*w+c,"*");break;default:level=setCharAt(level,d*w+c,".")}sokoDraw(1);break;case 5:sokoEditPush();level=setCharAt(level,d*w+c,"-");sokoDraw(1);break;case 6:sokoEditPush();for(d=h-1;0<=d;d--)level=level.substr(0,d*w+c)+"-"+level.substr(d*w+c);w++;canvas.width=(w-1)*size;sokoDraw(0);break;case 7:sokoEditPush();c="";for(a=0;a<=w-2;a++)c+="-";level=level.substr(0,
+        d*w)+(c+"|")+level.substr(d*w);h++;canvas.height=h*size;sokoDraw(0);break;case 8:selx=c;sely=d;sokoDraw(0);0<selected.length?c<pastex||c>=pastex+selectedw||d<pastey||d>=pastey+selectedh?document.getElementById("merge").checked?sokoSelectPaste(1):sokoSelectPaste(0):(sel2x=pastex,sel2y=pastey,sokoDrawSelected()):context.strokeRect(selx*size,sely*size,size,size);break;case 9:sokoEditPush();for(d=h-1;0<=d;d--)level=level.substr(0,d*w+c)+level.substr(d*w+c+1);w--;canvas.width=(w-1)*size;sokoDraw(0);break;
+        case 10:sokoEditPush(),level=level.substr(0,d*w)+level.substr((d+1)*w),h--,canvas.height=h*size,sokoDraw(0)}is_edit?sokoCountBox():sokoCountBox2()}else if(!(0!=tid||1==solved))if(b=translateMouseX(c,d),d=translateMouseY(c,d),c=b,1==reversed)switch(level[d*w+c]){case "$":case "*":d*w+c==sbox?(hint=sbox=0,a.target.style.cursor="default"):(sbox=d*w+c,vhint=whint=0);if(0!=sbox)a.target.style.cursor="pointer",sokoReversedBoxHint();sokoDraw(0)}else switch(level[d*w+c]){case "$":case "*":d*w+c==sbox?(hint=
+    sbox=0,a.target.style.cursor="default"):(sbox=d*w+c,vhint=whint=0);if(0!=sbox)a.target.style.cursor="pointer",sokoBoxHint();sokoDraw(0)}}
+function doMouseMove(a){if(is_edit||ctrl){if(0!=hold){var b=Math.floor((a.pageX-canvas.offsetLeft)/size),a=Math.floor((a.pageY-canvas.offsetTop)/size);if(!(b==epx&&a==epy)){epx=b;epy=a;switch(tool){case 2:sokoEditPush();level=setCharAt(level,a*w+b,"#");sokoDraw(1);break;case 3:sokoEditPush();switch(level[a*w+b]){case ".":case "$":level=setCharAt(level,a*w+b,"*");break;default:level=setCharAt(level,a*w+b,"$")}sokoDraw(1);break;case 4:sokoEditPush();switch(level[a*w+b]){case "@":level=setCharAt(level,
+    a*w+b,"+");break;case "$":level=setCharAt(level,a*w+b,"*");break;default:level=setCharAt(level,a*w+b,".")}sokoDraw(1);break;case 5:sokoEditPush();level=setCharAt(level,a*w+b,"-");sokoDraw(1);break;case 8:if(0!=selected.length)pastex=sel2x+(b-selx),pastey=sel2y+(a-sely),sokoDraw(0),sokoDrawSelected();else{sokoDraw(0);sel2x=b;sel2y=a;var c,d;sel2x<selx?(b=sel2x,c=selx):(b=selx,c=sel2x);sel2y<sely?(a=sel2y,d=sely):(a=sely,d=sel2y);context.strokeRect(b*size,a*size,size*(c-b+1),size*(d-a+1))}}is_edit?
+    sokoCountBox():sokoCountBox2()}}}else if(0!=ruler&&(b=Math.floor((a.pageX-canvas.offsetLeft)/size),a=Math.floor((a.pageY-canvas.offsetTop)/size),!(0==b||0==a)&&cursor!=a*(w-1+ruler)+b))cursor=a*(w-1+ruler)+b,c=Math.floor((b-1)/26),d=(b-1)%26,0!=c?document.getElementById("r").innerHTML=String.fromCharCode(64+c)+String.fromCharCode(65+d)+a:document.getElementById("r").innerHTML=String.fromCharCode(65+d)+a,sokoDraw(0),context.strokeRect(b*size+0.5,a*size+0.5,size-1,size-1),context.strokeRect(b*size+
+    1.5,a*size+1.5,size-3,size-3)}function doMouseWheel(a){if(!is_edit&&!ctrl){var b=0;if(!a)a=window.event;var c=a.target?a.target:a.srcElement;if(!(c&&"canvas"!=c.nodeName.toLowerCase()))a.wheelDelta?b=a.wheelDelta/120:a.detail&&(b=-a.detail/3),b&&0==tid&&(0>b?sokoUndoButton():sokoRedoButton()),a.preventDefault&&a.preventDefault(),a.returnValue=!1}}
+var SokoScore,SokoSlot,SokoSettings,new_player_name="No Name",reversed=0,rpx,rpy,jpx,jpy,is_edit=0,tool=8,hold=0,selx,sel2x,sely,sel2y,pastex,pastey,selected="",selectedb="",selectedw=0,selectedh=0,editstack=[],epx,epy,ctrl=0,levelset,total,current,title,author,author_array,talevelset=[],tatotal=0,tatitle=[],taauthor="",taauthor2=[],taauthor_array=0,textarea=0,dropbox=document.getElementById("drop"),
+    level0="____#####__________|____#---#__________|____#$--#__________|__###--$##_________|__#--$-$-#_________|###-#-##-#___######|#---#-##-#####--..#|#-$--$----------..#|#####-###-#@##--..#|____#-----#########|____#######________",level=level0,w=20,h=11,d4=[1,-1];d4[2]=w;d4[3]=-1*w;var px,py,cursor=0,d8=[],e8=[],lurd8=[],gothru=[];lurd8[0]="DruulU";lurd8[1]="DluurU";lurd8[2]="LdrruR";lurd8[3]="LurrdR";lurd8[4]="UlddrD";lurd8[5]="UrddlD";lurd8[6]="RulldL";lurd8[7]="RdlluL";
+var solution="",m=0,p=0,solved=0,sbox=0,bhint=[],hint=0,whint=0,vhint=0,ruler=0,grid=0,urbox=0,undop=0,ztag=[],zq=[],zd=[],zhead,ztail,tid=0,block=[],cut=[],canvas,context,skin=new Image,size,center=4,offset,reflection=0,rotation=0;canvas=document.getElementById("soko");context=canvas.getContext("2d");canvas.onselectstart=function(){return!1};skin.src=document.getElementById("skin").value+".png";
+skin.onload=function(){size=Math.floor(skin.height/4);offset=(size-center)/2;0==rotation%2?(canvas.width=(w-1+ruler)*size,canvas.height=(h+ruler)*size):(canvas.height=(w-1+ruler)*size,canvas.width=(h+ruler)*size);sokoDraw(0);sokoDrawRuler();document.getElementById("mp").innerHTML=m+"/"+p};sokoSlotInit();sokoSlotChange();
+if(1==preload){talevelset[0]=plevel;tatitle[0]=ptitle;tatotal=1;current=0;taauthor=pauthor;if(0==textarea)textarea=1,document.getElementById("taset").disabled=!1;document.menu.set.value="textarea";for(var i=document.getElementById("number").options.length-1;0<=i;i--)document.getElementById("number").remove(i);for(i=1;i<=tatotal;i++)addOption(document.getElementById("number"),i+" "+tatitle[i-1],i);document.menu.number.value=tatotal;levelset=talevelset;title=tatitle;author=taauthor;author_array=taauthor_array;
+    total=tatotal;document.info.lurd.value=levelset[0];sokoLoadLevel2()}sokoLoadSettings();window.addEventListener("keydown",doKeyDown,!1);window.addEventListener("keyup",doKeyUp,!1);canvas.addEventListener("mouseup",doMouseUp,!1);canvas.addEventListener("mousedown",doMouseDown,!1);canvas.addEventListener("mousemove",doMouseMove,!1);dropbox.addEventListener("dragenter",dragenter,!1);dropbox.addEventListener("dragover",dragover,!1);dropbox.addEventListener("drop",drop,!1);
+window.addEventListener&&window.addEventListener("DOMMouseScroll",doMouseWheel,!1);window.onmousewheel=document.onmousewheel=doMouseWheel;window.oncontextmenu=function(a){if(!a)a=window.event;return(a=a.target?a.target:a.srcElement)&&"canvas"!=a.nodeName.toLowerCase()?void 0:!1};window.onbeforeunload=function(){sokoSaveSettings()};
+
+</script>
+
+
+</section>
+
+
+<hr>
+</div>
+</body>
+</html>
